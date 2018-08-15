@@ -1,0 +1,65 @@
+.pedidos{
+    width: 100%;
+    min-height: 100vh;
+    padding: 5%;
+    box-sizing: border-box;
+}
+.box_pedidos{
+    width: 100%;
+}
+.pedidos .table{
+    width:100%;
+    flex-grow: 2;
+}
+.pedidos .pedido{
+    width:300px;
+    flex-grow: 1;
+    text-align: left;
+}
+.fl{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1% 0;
+    box-sizing: border-box;
+}
+.detail_photo{
+    width: 33%;
+    display: flex;
+    align-items: center;
+
+}
+.detail_photo img{
+   width: 35%;
+    margin-right: 65%;
+}
+.tb{
+    border-bottom: 1px solid #e8e8e8;
+    text-align: center;
+}
+.tb h3 {
+    width: 33%;
+    text-align: left;
+}
+
+.descript{
+    width: 33%;
+    text-align: left;
+}
+
+.descript p{
+   margin: 2px 0;
+}
+.price{
+    width: 33%;
+    text-align: left;
+}
+.rigth{
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 170px;
+}
+.btn_float{
+    position: absolute !important;
+    right: 30px;
+    bottom: 30px;
+}
