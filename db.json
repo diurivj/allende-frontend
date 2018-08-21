@@ -1,0 +1,80 @@
+{
+  "user": [
+    { "id": 1,
+      "razonSocial": "hola", 
+      "rfc": "typicode",
+      "user":"admin",
+      "email":"zonanabeto@gmail.com",
+      "phone":"5530366216",
+      "nombreContacto":"Luis Hernandez",
+      "password":"1234567"
+    },
+    {   "id": 2,
+        "razonSocial": "json-server sa de cv", 
+        "rfc": "typicode",
+        "user":"admin",
+        "email":"zonanabeto@gmail.com",
+        "phone":"5530366216",
+        "nombreContacto":"luis",
+        "password":"1234567"
+    },
+    {     "id": 3,
+          "razonSocial": "json-server sa de cv", 
+          "rfc": "typicode",
+          "user":"admin",
+          "email":"zonanabeto@gmail.com",
+          "phone":"5530366216",
+          "nombreContacto":"Luis Hernandez",
+          "password":"1234567"
+    },
+    {       "id": 4,
+            "razonSocial": "rafa", 
+            "rfc": "typicode",
+            "user":"admin",
+            "email":"zonanabeto@gmail.com",
+            "phone":"5530366216",
+            "nombreContacto":"Luis Hernandez",
+            "password":"1234567"
+    },
+    { "id": 5,
+      "razonSocial": "hola", 
+      "rfc": "typicode",
+      "user":"admin",
+      "email":"zonanabeto@gmail.com",
+      "phone":"5530366216",
+      "nombreContacto":"Luis Hernandez",
+      "password":"1234567"
+    },
+    {   "id": 6,
+        "razonSocial": "json-server sa de cv", 
+        "rfc": "typicode",
+        "user":"admin",
+        "email":"zonanabeto@gmail.com",
+        "phone":"5530366216",
+        "nombreContacto":"luis",
+        "password":"1234567"
+    },
+    {     "id": 7,
+          "razonSocial": "json-server sa de cv", 
+          "rfc": "typicode",
+          "user":"admin",
+          "email":"zonanabeto@gmail.com",
+          "phone":"5530366216",
+          "nombreContacto":"pedro",
+          "password":"1234567"
+    },
+    {       "id": 8,
+            "razonSocial": "rafa", 
+            "rfc": "typicode",
+            "user":"admin",
+            "email":"zonanabeto@gmail.com",
+            "phone":"5530366216",
+            "nombreContacto":"Luis Hernandez",
+            "password":"1234567"
+    }
+  ],
+  "comments": [
+    { "id": 1, "body": "some comment", "postId": 1 }
+  ],
+  "profile": { "name": "typicode" }
+}

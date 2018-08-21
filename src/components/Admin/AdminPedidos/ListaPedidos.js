@@ -1,72 +1,21 @@
 import React from 'react';
-import { List, message , Spin, Button } from 'antd';
-import reqwest from 'reqwest';
-
+import { List , Spin, Button } from 'antd';
 import InfiniteScroll from 'react-infinite-scroller';
 
-const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
 
-export class ListaPedidos extends React.Component {
-  state = {
-    data: [],
-    loading: false,
-    hasMore: true,
-  }
-
-  getData = (callback) => {
-    reqwest({
-      url: fakeDataUrl,
-      type: 'json',
-      method: 'get',
-      contentType: 'application/json',
-      success: (res) => {
-        callback(res);
-      },
-    });
-  }
-
-  componentWillMount() {
-    this.getData((res) => {
-      this.setState({
-        data: res.results,
-      });
-    });
-  }
-
-  handleInfiniteOnLoad = () => {
-    let data = this.state.data;
-    this.setState({
-      loading: true,
-    });
-    if (data.length > 14) {
-      message.warning('Infinite List loaded all');
-      this.setState({
-        hasMore: false,
-        loading: false,
-      });
-      return;
-    }
-    this.getData((res) => {
-      data = data.concat(res.results);
-      this.setState({
-        data,
-        loading: false,
-      });
-    });
-  }
-
-  render() {
+export const ListaPedidos = ({state, handleInfiniteOnLoad}) => {
+  const {loading,hasMore,data} = state;
     return (
       <div className="lista-pedidos">
         <InfiniteScroll
           initialLoad={false}
           pageStart={0}
-          loadMore={this.handleInfiniteOnLoad}
-          hasMore={!this.state.loading && this.state.hasMore}
+          loadMore={handleInfiniteOnLoad}
+          hasMore={!loading && hasMore}
           useWindow={false}
         >
           <List
-            dataSource={this.state.data}
+            dataSource={data}
             renderItem={item => (
               <List.Item key={item.id}>
                 <List.Item.Meta
@@ -81,7 +30,7 @@ export class ListaPedidos extends React.Component {
               </List.Item>
             )}
           >
-            {this.state.loading && this.state.hasMore && (
+            {loading && hasMore && (
               <div className="lista-pedidos-loading">
                 <Spin />
               </div>
@@ -91,4 +40,3 @@ export class ListaPedidos extends React.Component {
       </div>
     );
   }
-}
