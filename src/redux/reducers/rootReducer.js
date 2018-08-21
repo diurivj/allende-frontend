@@ -6,7 +6,7 @@ import promos from './promosReducer';
 const rootReducer = combineReducers({
     products,
     distribuidores:distReducers,
-  promos
+    promos
 });
 
 export default rootReducer;

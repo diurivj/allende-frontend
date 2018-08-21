@@ -19,7 +19,7 @@ class RegistrationForm extends React.Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                this.props.addDistri(e);
+                this.props.addDistri(values);
                 console.log('Received values of form: ', values);
             }
         });

@@ -5,7 +5,10 @@ export default function distReducers(state = [], action){
         case types.GET_DISTS:
             return action.distri;
         case types.NEW_DIST_SUCCESS:
-            return [action.distribuidor, ...state]
+            return [
+                ...state,
+                {...action.distribuidor}
+            ]
         default:
             return state;
     }

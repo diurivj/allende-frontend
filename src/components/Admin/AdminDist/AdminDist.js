@@ -17,10 +17,6 @@ class AdminDist extends Component {
     busqueda:''
   };
 
-  componentWillMount() {
-    this.props.getDistri();
-  };
-
   handleInfiniteOnLoad = () => {
     let data = this.props.distribuidores;
     this.setState({
