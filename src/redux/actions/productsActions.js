@@ -39,5 +39,9 @@ export const checkUser = () => (dispatch) => {
   } else {
     //dist actions
     console.log('it works?');
+    //actions distribuidor
+
+
+
   }
 };

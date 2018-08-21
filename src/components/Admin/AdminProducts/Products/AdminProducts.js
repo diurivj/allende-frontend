@@ -74,7 +74,7 @@ class AdminProducts extends React.Component{
 
 const mapStateToProps = (state, ownProps) => ({
   products: state.products,
-  fetched:state.products!==undefined
+  fetched: state.products!==undefined
 });
 
 const mapDispatchToProps = (dispatch) => ({
