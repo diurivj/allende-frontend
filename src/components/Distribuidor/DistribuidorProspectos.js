@@ -3,21 +3,15 @@ import './Admin.css';
 import { Table } from 'antd';
 import {Icon} from 'antd';
 import { Modal, Button } from 'antd';
+import NewProspectoModal from './NewProspectoModal';
 
 const columns = [
-    { title: '#cliente',
-        dataIndex: 'id',
-        key: 'id',
-        width: '10%',},
-    { title: 'Razó,n Social',
+    { title: 'Razón Social',
         dataIndex: 'cliente',
-        key: 'cliente',
-        width: '30%',},
-    { title: 'RFC',
-        dataIndex: 'rfc',
-        key: 'rfc',
-        width: '20%',},
-
+        key: 'cliente' },
+    { title: 'Dirección',
+        dataIndex: 'direccion',
+        key: 'direccion' },
 
     { title: 'Editar',
         dataIndex: '',
@@ -34,7 +28,7 @@ const data = [
     { key: 3, id: 'John Brown', cliente:"brendi", arrive:'20 Marzo', total: '$50.00', date: 32, status: 'New York No. 1 Lake Park', description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.' },
 ];
 
-class DistribuidorClientes extends Component {
+class DistribuidorProspectos extends Component {
     state = { visible: false }
 
     showModal = () => {
@@ -60,7 +54,7 @@ class DistribuidorClientes extends Component {
     render() {
         return (
             <div className="pedidos">
-                <h2>Clientes</h2>
+                <h2>Prospectos</h2>
                 <br/>
                 <div className="table">
                     <Table
@@ -69,11 +63,18 @@ class DistribuidorClientes extends Component {
                         dataSource={data}
                     />
                 </div>
-                <Button className='btn_float' type="primary"  onClick={this.showModal}>Agregar Cliente</Button>
-
+                <Button className='btn_float' type="primary"  onClick={this.showModal}>Agregar Prospecto</Button>
+                <Modal
+                    title="Completa los datos"
+                    visible={this.state.visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                >
+                    <NewProspectoModal />
+                </Modal>
             </div>
         );
     }
 }
 
-export default DistribuidorClientes;
+export default DistribuidorProspectos;
