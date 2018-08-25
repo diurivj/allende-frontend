@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Card, Icon } from 'antd';
+import { Icon } from 'antd';
 import { Table } from 'antd';
 import reqwest from 'reqwest';
 import { DatePicker, Select } from 'antd';
 
-const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+const { RangePicker} = DatePicker;
 
 const columns = [
     {

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { Switch, Route } from 'react-router-dom';
-import DistribuidorContainer from '../DistribuidorContainer';
 import DistribuidorDashboard from '../DistribuidorDashboard';
 import DistribuidorPedidos from '../DistribuidorPedidos';
 import {PedidoDetailDisplay} from '../PedidoDetailDisplay';
@@ -13,6 +12,7 @@ import DistribuidorVentas from '../historial/DistribuidorVentas';
 import ProductosContainer from '../catalogo/ProductosContainer';
 import PromoContainer from '../catalogo/PromoContainer';
 import DistribuidorClientes from '../DistribuidorClientes';
+import {ClienteDetailDisplay} from '../ClienteDetailDisplay';
 
 class AdminRoutes extends Component{
     render(){
@@ -29,7 +29,8 @@ class AdminRoutes extends Component{
                 <Route path="/dist/ventas" component={DistribuidorVentas}/>
                 <Route path="/dist/productos" component={ProductosContainer}/>
                 <Route path="/dist/promos" component={PromoContainer}/>
-                <Route path="/dist/clientes" component={DistribuidorClientes}/>
+                <Route exact path="/dist/clientes" component={DistribuidorClientes}/>
+                <Route path="/dist/clientes/id" component={ClienteDetailDisplay}/>
             </Switch>
         )
     }

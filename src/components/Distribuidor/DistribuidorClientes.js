@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Admin.css';
 import { Table } from 'antd';
 import {Icon} from 'antd';
-import { Modal, Button } from 'antd';
+import { Button } from 'antd';
 
 const columns = [
     { title: '#cliente',

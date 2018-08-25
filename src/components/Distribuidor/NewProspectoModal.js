@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Avatar} from 'antd';
-import {Link} from 'react-router-dom';
-import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, AutoComplete } from 'antd';
+import { Form, Input } from 'antd';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Admin.css';
-import { Card, Icon, Avatar } from 'antd';
+import { Card, Icon, Avatar, Tooltip } from 'antd';
 import { Divider } from 'antd';
 
 const { Meta } = Card;
@@ -17,7 +17,11 @@ class DistribuidorPerfil extends Component {
                     <div className="bx">
                         <Card
                             style={{ width:"70%", margin:"0 auto" }}
-                            actions={[<Icon type="setting" />, <Icon type="edit" />]}
+                            actions={[ <Tooltip title="Descargar código QR">
+                                <Icon type="download" />
+                            </Tooltip>, <Tooltip title="Editar">
+                                <Icon type="edit" />
+                            </Tooltip>]}
                         >
                             <Meta
                                 avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
