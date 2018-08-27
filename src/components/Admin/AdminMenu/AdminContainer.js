@@ -5,7 +5,11 @@ import AdminRoutes from "./AdminRoutes";
 class AdminContainer extends Component{
 
   componentWillMount() {
-    if(!localStorage.getItem('user')) return this.props.history.push('/');
+    if (!localStorage.getItem('user')){
+      return this.props.history.push('/');
+    }
+    const user = localStorage.getItem('user');
+    if (user.role === 'user') return this.props.history.push('/dist');
   }
 
   logOut = () => {
