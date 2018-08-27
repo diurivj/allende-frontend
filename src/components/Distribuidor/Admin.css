@@ -1,0 +1,162 @@
+.pedidos {
+    width: 100%;
+    min-height: 100%;
+    padding: 5%;
+    box-sizing: border-box;
+}
+.bx{
+    display: flex;
+}
+.box_pedidos{
+    width: 100%;
+}
+.pedidos .table{
+    width:100%;
+    flex-grow: 2;
+}
+.pedidos .pedido{
+    width:300px;
+    flex-grow: 1;
+    text-align: left;
+
+}
+.flexin{
+    display: flex;
+    flex-wrap: wrap;
+}
+.une{
+    width: 70%;
+}
+.deux{
+    width: 30%;
+    display: flex;
+    align-items: center;
+    height:100%;
+}
+.fl{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1% 0;
+    box-sizing: border-box;
+}
+.detail_photo{
+    width: 33%;
+    display: flex;
+    align-items: center;
+
+}
+.detail_photo img{
+   width: 35%;
+   margin: 0 auto;
+}
+.tb{
+    border-bottom: 1px solid #e8e8e8;
+    text-align: center;
+
+}
+.tl {
+    width: 33%;
+}
+
+.descript{
+    width: 33%;
+    text-align: left;
+}
+
+.descript p{
+   margin: 2px 0;
+}
+.price{
+    width: 33%;
+    text-align: center;
+}
+.rigth{
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 80px;
+}
+.btn_float{
+    position: fixed !important;
+    right: 30px;
+    bottom: 30px;
+
+}
+.ant-form-item{
+    margin-bottom: 0 !important;
+}
+.bx{
+    width: 80%;
+    margin: 0 auto;
+}
+.noti{
+    width: 100%;
+    color:white;
+    background: #001529;
+    border-bottom: 1px solid #001529;
+    height: 57px;
+}
+.noti h3{
+    color:white !important;
+
+}
+.single{
+    border: 1px solid #e8e8e8;
+    min-height: 30px;
+    text-align: left;
+    padding: 1% 2%;
+}
+.i{
+    margin: 0 10px 0 0;
+    color:#1890ff;
+}
+
+.tops{
+    width:350px;
+    flex-grow: 1;
+    margin: 0 10px 10px 0;
+}
+.flex{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+}
+.filtros{
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    height:70px;
+    align-items: center;
+    font-size: 14px;
+
+}
+.filtros label{
+    margin: 0 10px 0 10px;
+
+}
+.filtros input{
+
+
+}
+.filtros select{
+    margin-bottom: 0;
+    border: 1px solid rgba(167,176,183, 0.1);
+    background-color: white;
+    color:#A7B0B7;
+    width:150px;
+    height: 30px;
+}
+.filtros input::placeholder{
+    color:#A7B0B7;
+    font-weight: bolder;
+
+}
+.form_flex{
+    display: flex;
+    width: 100%;
+}
+.form_flex Input{
+margin: 5px 10px 5px 0;
+}
