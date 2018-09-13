@@ -78,16 +78,9 @@ const data2 = {
 
 const ChartContainer = () => {
   return (
-    <div style={{ height:'45vh', flexWrap:'wrap', display: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow:'1', flexDirection: 'row' }}>
-      <Card title="Ventas por producto" style={{margin:'10px', width: '350px' }}>
+    <div >
         <DataChart data={data} />
-      </Card>
-      <Card title="Ventas por distribuidor" style={{ margin:'10px',width: '350px'}}>
-        <DataChart data={data1}/>
-      </Card>
-      <Card title='Ventas Mensuales' style={{margin:'10px', width: '350px' }}>
-        <DataChart data={data2}/>
-      </Card>
+
     </div>
   );
 };

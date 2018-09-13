@@ -21,6 +21,12 @@ class AdminProducts extends React.Component{
         render: () => <img src='https://s3.amazonaws.com/kichink/items_865660_246443_20160104113504_b.jpg' alt='imagen' width='10%' />,
       },
       { title: 'Stock', dataIndex: 'stock', align: 'center', width: 100 },
+        { title: 'Editar',
+            dataindex: 'editar',
+            width: 100,
+            align: 'center',
+            render: (i, obj) => <a style={{  }} onClick={()=>this.showModal(obj)}> <Icon type="edit" /> </a>
+        },
       { title: 'Borrar',
         dataindex: 'action',
         width: 100,
@@ -52,11 +58,13 @@ class AdminProducts extends React.Component{
     const {visible, columns} = this.state;
     const {products} = this.props;
     return(
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow: '1' }}>
-        <Card title="Productos" style={{margin:'20px', width: '80%'}}>
-          <Button onClick={this.showModal} type="primary" style={{marginBottom: 20}}>Crear Nuevo Producto</Button>
+        <div style={{ width:'90%', flexWrap:'wrap', display: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow:'1', flexDirection: 'column' }}>
+          <div className="pedidos">
+            <h2>Productos</h2>
+            <br/>
           <Table rowKey="name"  columns={columns} dataSource={products} style={{width: '100%', maxHeight:"100vh"}} />
-        </Card>
+        <Button className='btn_float' onClick={this.showModal} type="primary" style={{marginBottom: 20}}>Crear Nuevo Producto</Button>
+
         <Modal visible={visible} title="Crear nuevo producto" onOk={this.handleOk} onCancel={this.handleCancel}
           footer={[
             <Button type='danger' key="cancel" onClick={this.handleCancel}>Cancelar</Button>,
@@ -66,6 +74,7 @@ class AdminProducts extends React.Component{
           <ModalForm/>
         </Modal>
       </div>
+        </div>
     )
   }
 }

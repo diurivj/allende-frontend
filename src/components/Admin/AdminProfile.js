@@ -15,13 +15,13 @@ export const AdminProfile = () => {
   return(
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow:'1', flexDirection: 'column' }}>
       <Avatar src={photo} size="large" />
-      <h2>Nombre de usuario: </h2>
-      <p> {user.contactName} </p>
-      <h2>Email</h2>
+      <h2>CERVECERIA ALLENDE  S.A.</h2>
+        <p> {user.contactName} </p>
+        <h2>Telefono</h2>
+        <p> {user.telefono} </p>
+        <h2>Email</h2>
       <p> {user.email} </p>
-      <Link to="/">
-        <Button type='danger' icon="poweroff" onClick={logOut}> Cerrar Sesión </Button>
-      </Link>
+
     </div>
   )
 };
