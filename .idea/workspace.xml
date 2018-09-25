@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8bde7033-4b57-4f2b-b753-ae6587fa880a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Admin/AdminDashboard/ChartContainer.js" afterPath="$PROJECT_DIR$/src/components/Admin/AdminDashboard/ChartContainer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Admin/AdminDashboard/index.js" afterPath="$PROJECT_DIR$/src/components/Admin/AdminDashboard/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Admin/AdminMenu/AdminPanel.js" afterPath="$PROJECT_DIR$/src/components/Admin/AdminMenu/AdminPanel.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Admin/AdminMenu/AdminRoutes.js" afterPath="$PROJECT_DIR$/src/components/Admin/AdminMenu/AdminRoutes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Admin/AdminProducts/Products/AdminProducts.js" afterPath="$PROJECT_DIR$/src/components/Admin/AdminProducts/Products/AdminProducts.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Admin/AdminProducts/Products/ModalForm.js" afterPath="$PROJECT_DIR$/src/components/Admin/AdminProducts/Products/ModalForm.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Admin/AdminProducts/Promos/AdminPromos.js" afterPath="$PROJECT_DIR$/src/components/Admin/AdminProducts/Promos/AdminPromos.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Admin/AdminProfile.js" afterPath="$PROJECT_DIR$/src/components/Admin/AdminProfile.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Distribuidor/Admin.css" afterPath="$PROJECT_DIR$/src/components/Distribuidor/Admin.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Distribuidor/ClienteDetailDisplay.js" afterPath="$PROJECT_DIR$/src/components/Distribuidor/ClienteDetailDisplay.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Distribuidor/DistribuidorClientes.js" afterPath="$PROJECT_DIR$/src/components/Distribuidor/DistribuidorClientes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Distribuidor/DistribuidorDashboard.js" afterPath="$PROJECT_DIR$/src/components/Distribuidor/DistribuidorDashboard.js" />
-    </list>
+    <list default="true" id="8bde7033-4b57-4f2b-b753-ae6587fa880a" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -762,12 +748,12 @@
       <workItem from="1536168253286" duration="6597000" />
       <workItem from="1536389508441" duration="5485000" />
       <workItem from="1536484692870" duration="254000" />
-      <workItem from="1536795845045" duration="2892000" />
+      <workItem from="1536795845045" duration="3325000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="128832000" />
+    <option name="totallyTimeSpent" value="129265000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="40" y="23" width="1240" height="777" extended-state="6" />
