@@ -12,7 +12,7 @@ class DistribuidorDashboard extends Component {
                     <Card
                         hoverable
 
-                        title="Producto más vendido" bordered={true} style={{ width:"100%", height:"250px" }}>
+                        title="Producto más vendido" bordered={true} style={{ width:"100%", height:"300px" }}>
                         <p>Card content</p>
                         <p>Card content</p>
                         <p>Card content</p>
