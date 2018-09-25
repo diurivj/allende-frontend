@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6dc587a5-39ed-4c42-831d-36f87286f500" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/AdminMenu/AdminContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/AdminMenu/AdminContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Login/LoginContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login/LoginContainer.js" afterDir="false" />
-    </list>
+    <list default="true" id="6dc587a5-39ed-4c42-831d-36f87286f500" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +12,7 @@
     <session id="97343775">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.2" value="3" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.opened" value="4" />
@@ -174,12 +171,12 @@
       <workItem from="1535386699121" duration="56000" />
       <workItem from="1535386805146" duration="305000" />
       <workItem from="1535387312350" duration="8000" />
-      <workItem from="1535387335250" duration="887000" />
+      <workItem from="1535387335250" duration="997000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1256000" />
+    <option name="totallyTimeSpent" value="1366000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
