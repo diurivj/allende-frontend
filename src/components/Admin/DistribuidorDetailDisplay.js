@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, Input, Checkbox} from 'antd';
-
+import {Link} from 'react-router-dom';
 const FormItem = Form.Item;
 const { TextArea } = Input;
 function onChange(e) {
@@ -66,7 +66,9 @@ export const DistribuidorDetailDisplay  = () => {
                 </FormItem>
                 <br/>
                 <div style={{float:"right"}}>
-                    <Button style={{marginRight:"20px"}}>Cancelar</Button>
+                    <Link to="/admin/dist">
+                        <Button style={{marginRight:"20px"}}>Cancelar</Button>
+                    </Link>
                     <Button type="primary">Guardar</Button>
                 </div>
 

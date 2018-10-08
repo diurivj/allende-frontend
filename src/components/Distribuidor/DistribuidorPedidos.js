@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './Admin.css';
-import { Table } from 'antd';
+import { Table, Button, Modal } from 'antd';
 import {Icon} from 'antd';
+import {DistribuidorNewPedido} from './forms/DistribuidorNewPedido';
 
 const columns = [
     { title: '#Pedido',
@@ -29,6 +30,27 @@ const data = [
 
 
 class DistribuidorPedidos extends Component {
+    state = { visible: false }
+
+    showModal = () => {
+        this.setState({
+            visible: true,
+        });
+    }
+
+    handleOk = (e) => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    }
+
+    handleCancel = (e) => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    }
     render() {
         return (
             <div className="pedidos">
@@ -50,6 +72,15 @@ class DistribuidorPedidos extends Component {
                         />
                     </div>
                 </div>
+                <Button className='btn_float' type="primary"  onClick={this.showModal}>Agregar Pedido</Button>
+                <Modal
+                    title="Realiza un nuevo pedido"
+                    visible={this.state.visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                >
+                    <DistribuidorNewPedido />
+                </Modal>
             </div>
         );
     }

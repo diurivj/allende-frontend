@@ -162,3 +162,6 @@
 .form_flex Input{
 margin: 5px 10px 5px 0;
 }
+.flexito{
+    display: flex !important;
+}

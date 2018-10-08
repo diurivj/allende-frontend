@@ -19,7 +19,15 @@ export const ClienteDetailDisplay  = () => {
                 <FormItem label="RFC">
 
                 </FormItem>  <Input  placeholder="18 digitos"/></div>
-                <FormItem label="Direccion Fiscal">
+                <div className="form_flex">
+                    <FormItem label="Teléfono">
+
+                    </FormItem><Input placeholder="555 55 55 55"/>
+                    <FormItem label="Correo electrónico">
+
+                    </FormItem>  <Input  placeholder="example@example.com"/></div>
+
+                <FormItem label="Dirección Fiscal">
                     <div className="form_flex">
                     <Input  placeholder="Calle"/>
                     <Input  placeholder="Número"/>
@@ -33,7 +41,7 @@ export const ClienteDetailDisplay  = () => {
                 </FormItem>
                 <Checkbox onChange={onChange}>Utilizar también como dirección de enterga</Checkbox>
 
-                <FormItem label="Direccion Entrega">
+                <FormItem label="Dirección Entrega">
                     <div className="form_flex">
                         <Input  placeholder="Calle"/>
                         <Input  placeholder="Número"/>
