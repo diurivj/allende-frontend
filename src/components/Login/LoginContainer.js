@@ -17,7 +17,7 @@ class LoginContainer extends Component{
       if (user.role === 'admin') {
         this.props.history.push('/admin')
       } else if (user.role === 'user') {
-        this.props.history.push('/user')
+        this.props.history.push('/dist')
       }
     } else {
       this.setState({isLogged:false})
@@ -40,7 +40,7 @@ class LoginContainer extends Component{
         if(user.role === 'admin') {
           this.props.history.push('/admin');
         } else {
-          this.props.history.push('/user');
+          this.props.history.push('/dist');
         }
       })
       .catch(error => {
