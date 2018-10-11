@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import {LoginForm} from "./LoginForm";
 import './LoginContainer.css';
 import {logIn} from "../../services/authServices";
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import * as productsActions from '../../redux/actions/productsActions';
 import toastr from 'toastr';
 
 class LoginContainer extends Component{
@@ -20,7 +17,7 @@ class LoginContainer extends Component{
       if (user.role === 'admin') {
         this.props.history.push('/admin')
       } else if (user.role === 'user') {
-        this.props.history.push('/user')
+        this.props.history.push('/dist')
       }
     } else {
       this.setState({isLogged:false})
@@ -42,9 +39,8 @@ class LoginContainer extends Component{
         localStorage.setItem('access_token', JSON.stringify(token));
         if(user.role === 'admin') {
           this.props.history.push('/admin');
-          this.props.actions.loadProducts(this.state.products)
         } else {
-          this.props.history.push('/user');
+          this.props.history.push('/dist');
         }
       })
       .catch(error => {
@@ -65,10 +61,4 @@ class LoginContainer extends Component{
   }
 }
 
-function mapDispatchToProps(dispatch){
-  return {
-    actions: bindActionCreators(productsActions, dispatch)
-  }
-}
-
-export default connect(null, mapDispatchToProps)(LoginContainer);
+export default LoginContainer;

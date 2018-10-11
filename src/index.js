@@ -10,8 +10,11 @@ import 'antd/dist/antd.css';//antd
 import 'toastr/build/toastr.css';
 import { LocaleProvider } from 'antd';
 import sp from 'antd/lib/locale-provider/es_ES';
+import * as actions from './redux/actions/productsActions';
 
 export const store = configureStore();
+
+store.dispatch(actions.checkUser());
 
 const WithRouter = () => (
     <BrowserRouter>

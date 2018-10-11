@@ -41,7 +41,8 @@
   border-radius: 4px;
   overflow: auto;
   padding: 8px 24px;
-  height: 300px;
+  max-height: 300px;
+
 }
 .lista-proveedores-loading {
   position: absolute;
@@ -55,11 +56,15 @@
   border-radius: 4px;
   overflow: auto;
   padding: 8px 24px;
-  height: 350px;
+  max-height: 300px;
 }
 .lista-pedidos-loading {
   position: absolute;
   bottom: 40px;
   width: 100%;
   text-align: center;
+}
+
+.iconDist :hover {
+  color: #40a9ff
 }

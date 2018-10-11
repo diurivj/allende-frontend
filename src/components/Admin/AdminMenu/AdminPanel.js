@@ -14,16 +14,18 @@ class AdminPanel extends Component{
   render(){
     return(
         <div style={{ width: 200 , height:'100vh', textAlign: 'left' }}>
-          <Menu mode="inline" theme="dark" inlineCollapsed={false} defaultSelectedKeys={['1']} style={{ height: '100vh' }} inlineIndent={'24'} >
-            <div style={{ marginTop: '30px', marginBottom: '30px', textAlign: 'center' }}>
-              <img src={logo} alt="allende" width="70%" />
-            </div>
+          <Menu mode="inline" theme="dark" inlineCollapsed={false} defaultSelectedKeys={['1']} style={{ height: '100vh' }} >
+
+            <Menu.Item key="/admin" style={{height: '100px', textAlign: "center", marginTop: '50px', marginBottom: '50px'}} >
+              <Link to="/admin">
+                <img src={logo} alt="allendelogo" width="70%"/>
+              </Link>
+            </Menu.Item>
+
             <Menu.Item key="1">
               <Link to="/admin">
-                <div className='menuItem'>
-                  <Icon type="dashboard" />
-                  <span>Dashboard</span>
-                </div>
+                <Icon type="dashboard" />
+                <span>Dashboard</span>
               </Link>
             </Menu.Item>
             <Menu.Item key="2">
@@ -44,10 +46,8 @@ class AdminPanel extends Component{
             </Menu.Item>
             <Menu.Item  key="4">
               <Link to="/admin/pedidos">
-                <div className='menuItem'>
-                  <Icon type="inbox" />
-                  <span>Pedidos</span>
-                </div>
+                <Icon type="inbox" />
+                <span>Pedidos</span>
               </Link>
             </Menu.Item>
             <Menu.Item  key="5">
@@ -68,28 +68,23 @@ class AdminPanel extends Component{
               </Menu.Item>
               <Menu.Item key="7">
                 <Link to="/admin/promos" >
-                  <div className='menuItem'>
-                    <span>Promociones</span>
-                  </div>
+                  <span>Promociones</span>
                 </Link>
               </Menu.Item>
             </SubMenu>
             <Menu.Item  key="8">
               <Link to="/admin/profile">
-                <div className='menuItem'>
-                  <Icon type="user" />
-                  <span>Perfil</span>
-                </div>
+                <Icon type="user" />
+                <span>Perfil</span>
               </Link>
             </Menu.Item>
             <Menu.Item onClick={this.logOut} key="9">
               <Link to="/">
-                <div className='menuItem'>
-                  <Icon type="poweroff" />
-                  <span>Logout</span>
-                </div>
+                <Icon type="poweroff" />
+                <span>Logout</span>
               </Link>
             </Menu.Item>
+
           </Menu>
       </div>
     )

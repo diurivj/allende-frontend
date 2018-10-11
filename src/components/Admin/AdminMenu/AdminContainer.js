@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import AdminPanel from "./AdminPanel";
 import AdminRoutes from "./AdminRoutes";
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import * as productsActions from '../../../redux/actions/productsActions';
 
 class AdminContainer extends Component{
 
   componentWillMount() {
-    if(!localStorage.getItem('user')) this.props.history.push('/');
+    if (!localStorage.getItem('user')){
+      return this.props.history.push('/');
+    }
+    const user = localStorage.getItem('user');
+    if (user.role === 'user') return this.props.history.push('/dist');
   }
 
   logOut = () => {
@@ -18,26 +19,13 @@ class AdminContainer extends Component{
   };
 
   render(){
-    console.log(this.props);
     return(
       <div style={{ display: 'flex'}}>
         <AdminPanel />
-        <AdminRoutes logOut={this.logOut} products={this.props.products} />
+        <AdminRoutes logOut={this.logOut} />
       </div>
     )
   }
 }
 
-function mapStateToProps(state, ownProps){
-  return {
-    products: state.products
-  }
-}
-
-function mapDispatchToProps(dispatch){
-  return {
-    actions: bindActionCreators(productsActions, dispatch)
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AdminContainer);
+export default AdminContainer;

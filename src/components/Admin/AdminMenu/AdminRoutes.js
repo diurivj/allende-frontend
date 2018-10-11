@@ -5,12 +5,14 @@ import AdminDashboard from '../AdminDashboard/index';
 import AdminDistribuidores from '../AdminDistribuidores';
 import AdminPedidos from '../AdminPedidos';
 import AdminProducts from "../AdminProducts/Products/AdminProducts";
+import NewDist from "../AdminDist/NewDist";
 import AdminPromos from "../AdminProducts/Promos/AdminPromos";
 import AdminVentas from '../AdminVentas';
 import AdminAlertas from '../AdminAlertas';
 import {DistribuidorDetailDisplay} from '../DistribuidorDetailDisplay';
 
 class AdminRoutes extends Component{
+
   render(){
     return(
       <Switch>
@@ -24,6 +26,7 @@ class AdminRoutes extends Component{
         <Route exact path='/admin/dashboard' component={AdminDashboard} />
         <Route exact path='/admin/productos' component={AdminProducts} />
         <Route exact path='/admin/promos' component={AdminPromos} />
+        <Route exact path='/admin/dist/:id' component={ViewDist} />
       </Switch>
     )
   }

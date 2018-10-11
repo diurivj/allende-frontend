@@ -12,4 +12,4 @@ export function logIn(user){
   })
     .then(r => r.json())
     .then(user => user);
-}
+};

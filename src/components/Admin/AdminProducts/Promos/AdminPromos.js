@@ -79,4 +79,12 @@ class AdminPromos extends Component{
   }
 }
 
-export default AdminPromos;
+const mapStateToProps = (state, ownProps) => ({
+  promos: state.promos
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(promosActions, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminPromos);

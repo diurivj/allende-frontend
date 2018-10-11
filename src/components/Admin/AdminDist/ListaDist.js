@@ -1,87 +1,42 @@
 import React from 'react';
-import { List, message, Avatar, Spin, Button } from 'antd';
-import reqwest from 'reqwest';
-
+import { List, Avatar, Spin, Icon} from 'antd';
+import {Link} from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroller';
+import { showDeleteConfirm } from './DistModals';
 
-const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
 
-export class ListaDist extends React.Component {
-  state = {
-    data: [],
-    loading: false,
-    hasMore: true,
-  }
-
-  getData = (callback) => {
-    reqwest({
-      url: fakeDataUrl,
-      type: 'json',
-      method: 'get',
-      contentType: 'application/json',
-      success: (res) => {
-        callback(res);
-      },
-    });
-  }
-
-  componentWillMount() {
-    this.getData((res) => {
-      this.setState({
-        data: res.results,
-      });
-    });
-  }
-
-  handleInfiniteOnLoad = () => {
-    let data = this.state.data;
-    this.setState({
-      loading: true,
-    });
-    if (data.length > 14) {
-      message.warning('Infinite List loaded all');
-      this.setState({
-        hasMore: false,
-        loading: false,
-      });
-      return;
-    }
-    this.getData((res) => {
-      data = data.concat(res.results);
-      this.setState({
-        data,
-        loading: false,
-      });
-    });
-  }
-
-  render() {
+export const ListaDist = ({handleInfiniteOnLoad, loading,hasMore, lista}) => {  
+/* 
+    if(this.state.data===undefined)return<Spin size="large" /> */
+    
     return (
       <div className="lista-proveedores">
         <InfiniteScroll
           initialLoad={false}
           pageStart={0}
-          loadMore={this.handleInfiniteOnLoad}
-          hasMore={!this.state.loading && this.state.hasMore}
+          loadMore={handleInfiniteOnLoad}
+          hasMore={!loading && hasMore}
           useWindow={false}
         >
           <List
-            dataSource={this.state.data}
+            dataSource={lista}
             renderItem={item => (
               <List.Item key={item.id}>
                 <List.Item.Meta
                   avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                  title={<a href="/">{item.name.last}</a>}
-                  description={item.email}
+                  title={<Link to={`/admin/dist/${item._id}`}>
+               <span>{item.razonSocial}</span> </Link>}
+                  description={item.contactName}
                 />
                 <div>
-                  <Button>Editar</Button> <span> | </span>
-                  <Button>Eliminar</Button> 
+                  <span> {item.active?'inactivo':'activo'} </span>   
+                  <Icon className='iconDist' type="edit" /> <span> | </span>
+                  <Icon onClick={showDeleteConfirm} type="delete" />
                 </div>
               </List.Item>
             )}
           >
-            {this.state.loading && this.state.hasMore && (
+            {loading && hasMore && (
               <div className="lista-proveedores-loading">
                 <Spin />
               </div>
@@ -90,5 +45,4 @@ export class ListaDist extends React.Component {
         </InfiniteScroll>
       </div>
     );
-  }
 }
