@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {getPromos} from "../../../../services/productsServices";
 import { Button, Modal, Icon, Table, Card } from 'antd';
 import {ModalFormPromo} from "./ModalFormPromo";
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 
 const { Meta } = Card;
 
@@ -84,7 +86,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(promosActions, dispatch)
+  actions: bindActionCreators(getPromos, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminPromos);
