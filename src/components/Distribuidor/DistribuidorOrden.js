@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import './Admin.css';
-import { Table } from 'antd';
+import {Link} from 'react-router-dom';
+import { Table, Button, Modal } from 'antd';
 import {Icon} from 'antd';
+import {DistribuidorNewOrden} from './forms/DistribuidorNewOrden';
+
 
 const columns = [
     { title: '#Pedido',
@@ -29,10 +32,31 @@ const data = [
 
 
 class DistribuidorOrden extends Component {
+    state = { visible: false }
+
+    showModal = () => {
+        this.setState({
+            visible: true,
+        });
+    }
+
+    handleOk = (e) => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    }
+
+    handleCancel = (e) => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    }
     render() {
         return (
             <div className="pedidos">
-                <h2>Mis pedidos</h2>
+                <h2>Mis Ordenes</h2>
                 <br/>
                 <div className="box_pedidos">
                     <div className="pedido">
@@ -50,6 +74,15 @@ class DistribuidorOrden extends Component {
                         />
                     </div>
                 </div>
+                <Button className='btn_float' type="primary"  onClick={this.showModal}>Generar Orden</Button>
+                <Modal
+                    title="Genera un nuevo pedido"
+                    visible={this.state.visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                >
+                   <DistribuidorNewOrden />
+                </Modal>
             </div>
         );
     }

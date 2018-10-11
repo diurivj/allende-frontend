@@ -62,6 +62,8 @@ class AdminDistribuidores extends Component {
 
     render() {
         return (
+            <div style={{ width:'90%', flexWrap:'wrap', display: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow:'1', flexDirection: 'column' }}>
+
             <div className="pedidos">
                 <h2>Distribuidores</h2>
                 <br/>
@@ -75,6 +77,7 @@ class AdminDistribuidores extends Component {
                 <Link to="/admin/dist/id">
                     <Button className='btn_float' type="primary" onClick={this.showModal}>Agregar Distribuidor</Button>
                 </Link>
+            </div>
             </div>
         );
     }

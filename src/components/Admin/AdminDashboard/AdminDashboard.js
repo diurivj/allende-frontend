@@ -71,7 +71,7 @@ class AdminDashboard extends Component {
               <Card
                   hoverable
 
-                  title="Cliente frecuente" bordered={true} style={{ width:"100%", height:"280px" }}>
+                  title="Clientes frecuente" bordered={true} style={{ width:"100%", height:"280px" }}>
                 <ChartContainer />
               </Card>
             </div>
@@ -79,7 +79,7 @@ class AdminDashboard extends Component {
               <Card
                   hoverable
 
-                  title="Compras" bordered={true} style={{ width:"100%", height:"280px" }}>
+                  title="Ventas" bordered={true} style={{ width:"100%", height:"280px" }}>
                 <ChartContainer />
               </Card>
             </div>

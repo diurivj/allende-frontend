@@ -62,12 +62,12 @@ class AdminPromos extends Component{
             <h2>Promociones</h2>
             <br/>
             <Table rowKey="name"  columns={columns} dataSource={promos} style={{width: '100%', maxHeight:"100vh"}} />
-            <Button className='btn_float' onClick={this.showModal} type="primary" style={{marginBottom: 20}}>Crear Nuevo Producto</Button>
+            <Button className='btn_float' onClick={this.showModal} type="primary" style={{marginBottom: 20}}>Crear Nueva Promoción</Button>
 
-            <Modal visible={visible} title="Crear nuevo producto" onOk={this.handleOk} onCancel={this.handleCancel}
+            <Modal visible={visible} title="Crear una promoción" onOk={this.handleOk} onCancel={this.handleCancel}
                    footer={[
                      <Button type='danger' key="cancel" onClick={this.handleCancel}>Cancelar</Button>,
-                     <Button type='primary' key="submit" onClick={this.handleOk}>Crear producto</Button>
+                     <Button type='primary' key="submit" onClick={this.handleOk}>Crear promoción</Button>
                    ]}
             >
               <ModalFormPromo/>

@@ -6,19 +6,16 @@ const { Meta } = Card;
 
 export const CardPromoDisplay  = () => {
     return(
-        <Card className="card_promo" style={{margin:"10px"}} hoverable>
-            <h2>Fiebre Mundialista</h2>
-            <div className="flex box_promo" style={{alignItens:"flex-start"}}>
-                <div className="photo">
-                    <img src="http://cerveceriaallende.mx/wp-content/uploads/2016/02/BrownAleFinal2.png" alt=""/>
-                </div>
-                <div className="inf_card">
-                    <p>3 cajas mundialistas + mochila + vaso</p>
-                </div>
-                <div className="price">
-                    <p>$400.00</p>
-                </div>
+        <div className="card_promo">
+            <div className="photo">
+                <img src="https://www.bierful.com/blog/wp-content/uploads/2017/04/FederalCerveceri%CC%81aBanner.jpg" alt=""/>
             </div>
-        </Card>
+            <div className="box_promo">
+                <h2>Fiebre Mundialista</h2>
+                <p>3 cajas mundialistas + mochila + vaso</p>
+
+                <span>$400.00</span>
+            </div>
+    </div>
     )
 };
