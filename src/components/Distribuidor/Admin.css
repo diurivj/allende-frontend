@@ -115,6 +115,8 @@
     width:350px;
     flex-grow: 1;
     margin: 0 10px 10px 0;
+    height: 280px;
+
 }
 .flex{
     display: flex;
@@ -159,4 +161,7 @@
 }
 .form_flex Input{
 margin: 5px 10px 5px 0;
+}
+.flexito{
+    display: flex !important;
 }

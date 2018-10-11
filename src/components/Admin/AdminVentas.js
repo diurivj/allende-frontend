@@ -8,7 +8,7 @@ const {  RangePicker } = DatePicker;
 const Search = Input.Search;
 
 const columns = [
-    {
+   {
         title: 'Mes',
         dataIndex: 'month',
         sorter: true, width: '15%',
@@ -49,7 +49,7 @@ function handleChange(value) {
     console.log(date, dateString);
 }
 
-class DistribuidorCompras extends Component {
+class AdminVentas extends Component {
     state = {
         data: [],
         pagination: {},
@@ -104,29 +104,29 @@ class DistribuidorCompras extends Component {
         return (
             <div style={{ width:'90%', flexWrap:'wrap', display: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow:'1', flexDirection: 'column' }}>
 
-                <div className="pedidos">
-                    <h2>Compras</h2>
-                    <br/>
-                    <div className="filtros flex" style={{justifyContent:"space-between"}}>
-                        <label htmlFor="">Buscar Proyecto</label>
-                        <RangePicker onChange={onChange} />
-                        <br />
-                    </div>
-                    <h3 style={{float:"left"}}>Total del período: </h3>
-
-                    <Table
-                        columns={columns}
-                        rowKey={record => record.login.uuid}
-                        dataSource={this.state.data}
-                        pagination={this.state.pagination}
-                        loading={this.state.loading}
-                        onChange={this.handleTableChange}
-                    />
-
+            <div className="pedidos">
+                <h2>Ventas</h2>
+                <br/>
+                <div className="filtros flex" style={{justifyContent:"space-between"}}>
+                    <label htmlFor="">Buscar Proyecto</label>
+                    <RangePicker onChange={onChange} />
+                    <br />
                 </div>
+                <h3 style={{float:"left"}}>Total del período: </h3>
+
+                <Table
+                    columns={columns}
+                    rowKey={record => record.login.uuid}
+                    dataSource={this.state.data}
+                    pagination={this.state.pagination}
+                    loading={this.state.loading}
+                    onChange={this.handleTableChange}
+                />
+
+            </div>
             </div>
         );
     }
 }
 
-export default DistribuidorCompras;
+export default AdminVentas;

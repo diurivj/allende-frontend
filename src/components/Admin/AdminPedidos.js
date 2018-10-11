@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import './Admin.css';
-import { Table, Button, Modal } from 'antd';
+import './Administrador.css';
+import { Table } from 'antd';
 import {Icon} from 'antd';
-import {DistribuidorNewPedido} from './forms/DistribuidorNewPedido';
 
 const columns = [
     { title: '#Pedido',
@@ -29,38 +28,19 @@ const data = [
 ];
 
 
-class DistribuidorPedidos extends Component {
-    state = { visible: false }
-
-    showModal = () => {
-        this.setState({
-            visible: true,
-        });
-    }
-
-    handleOk = (e) => {
-        console.log(e);
-        this.setState({
-            visible: false,
-        });
-    }
-
-    handleCancel = (e) => {
-        console.log(e);
-        this.setState({
-            visible: false,
-        });
-    }
+class AdminPedidos extends Component {
     render() {
         return (
+            <div style={{ width:'90%', flexWrap:'wrap', display: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow:'1', flexDirection: 'column' }}>
+
             <div className="pedidos">
                 <h2>Mis pedidos</h2>
                 <br/>
                 <div className="box_pedidos">
                     <div className="pedido">
-                        <h3>Distribuidor Bajio</h3>
-                        <p>Tu crédito es de: </p>
-                        <p>Tu plazo de pago es de: </p>
+                        <h3>Cervecería Allende S.A. de C.V.</h3>
+                        <p>Ventas del mes: </p>
+                        <p>Adeudo: </p>
 
                     </div>
                     <br/>
@@ -72,18 +52,10 @@ class DistribuidorPedidos extends Component {
                         />
                     </div>
                 </div>
-                <Button className='btn_float' type="primary"  onClick={this.showModal}>Agregar Pedido</Button>
-                <Modal
-                    title="Realiza un nuevo pedido"
-                    visible={this.state.visible}
-                    onOk={this.handleOk}
-                    onCancel={this.handleCancel}
-                >
-                    <DistribuidorNewPedido />
-                </Modal>
+            </div>
             </div>
         );
     }
 }
 
-export default DistribuidorPedidos;
+export default AdminPedidos;

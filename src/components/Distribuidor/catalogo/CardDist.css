@@ -12,7 +12,9 @@
     text-align: left;
 }
 .card_p{
+    background:url('https://wallpaperstock.net/wallpapers/thumbs1/54018hd.jpg') !important;
     width: 420px;
+    color:red;
     border: 1px solid #e8e8e8;
 
     cursor: pointer;
@@ -22,14 +24,29 @@
 }
 .card_promo{
     width:100%;
-
+    display: flex ;
+    flex-wrap: wrap;
+    border: 1px solid #e8e8e8;
+    margin: 10px 0;
+}
+.photo{
+    width: 500px;
+    flex-grow: 1;
+    height: 250px;
+    overflow: hidden;
 }
 .photo img{
-    height: 170px;
+    height: 250px;
 }
-.box_promo div{
-    width: 33.33%;
+.box_promo{
+    width: 250px;
+    flex-grow: 1;
+    box-sizing: border-box;
+    padding: 3%;
 }
-.card_promo p {
+.box_promo span{
     font-size: 22px;
+    font-weight: bolder;
+    position: relative;
+    bottom: 0;
 }
