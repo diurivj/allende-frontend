@@ -5,14 +5,14 @@ import AdminDashboard from '../AdminDashboard/AdminDashboard';
 import AdminDistribuidores from '../AdminDistribuidores';
 import AdminPedidos from '../AdminPedidos';
 import AdminProducts from "../AdminProducts/Products/AdminProducts";
-import NewDist from "../AdminDist/NewDist";
+//import NewDist from "../AdminDist/NewDist";
 import AdminPromos from "../AdminProducts/Promos/AdminPromos";
 import AdminVentas from '../AdminVentas';
 import AdminAlertas from '../AdminAlertas';
-import {DistribuidorDetailDisplay} from '../DistribuidorDetailDisplay';
+import DistribuidorDetailDisplay from "../DistribuidorDetailDisplay";
 
-class AdminRoutes extends Component{
 
+class AdminRoutes extends Component {
   render(){
     return(
       <Switch>

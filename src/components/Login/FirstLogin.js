@@ -8,7 +8,7 @@ class FirstLogin extends Component{
     let email = query[1].split('=');
     let pass = query[2].split('=');
     //consumir servicio aquí de login para redireccionar a cambiar contraseña
-    fetch('http://localhost:3000/auth/login', {
+    fetch('https://backendallende.herokuapp.com/auth/login', {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

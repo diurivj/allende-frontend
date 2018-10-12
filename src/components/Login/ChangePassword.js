@@ -25,6 +25,7 @@ class ChangePassword extends Component {
         })
           .then(r => r.json())
           .then(user => {
+
             localStorage.setItem('user', JSON.stringify(user));
             return this.props.history.push('/')
           })
