@@ -5,6 +5,7 @@ import AdminContainer from "./components/Admin/AdminMenu/AdminContainer";
 import DistribuidorContainer from './components/Distribuidor/DistribuidorContainer';
 import FirstLogin from "./components/Login/FirstLogin";
 import WrappedForm from "./components/Login/ChangePassword";
+import Profile from "./components/Profile";
 
 export const Routes = () => (
   <Switch>
@@ -13,5 +14,6 @@ export const Routes = () => (
     <Route path='/dist' component={DistribuidorContainer}/>
     <Route path='/active' component={FirstLogin} />
     <Route path='/change_password' component={WrappedForm} />
+    <Route path='/profile/:id' component={Profile} />
   </Switch>
 );

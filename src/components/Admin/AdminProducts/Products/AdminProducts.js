@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, Icon, Table, Card } from 'antd';
+import { Button, Modal, Icon, Table } from 'antd';
 import toastr from 'toastr';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
