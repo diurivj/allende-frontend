@@ -2,25 +2,38 @@ import React, { Component } from 'react';
 import { Transfer, Button, Modal } from 'antd';
 import './Administrador.css';
 import {AlertaModal} from './AlertaModal';
+import { Table, Divider, Tag, Icon } from 'antd';
 
-const mockData = [];
-for (let i = 0; i < 20; i++) {
-    mockData.push({
-        key: i.toString(),
-        title: `content${i + 1}`,
-        description: `description of content${i + 1}`,
-    });
-}
 
-const targetKeys = mockData
-    .filter(item => +item.key % 3 > 1)
-    .map(item => item.key);
+const { Column, ColumnGroup } = Table;
+
+
+const data = [{
+    key: '1',
+    texto:"hola",
+    status: () => <Icon type="download" />
+}, {
+    key: '2',
+    firstName: 'Jim',
+    lastName: 'Green',
+    age: 42,
+    address: 'London No. 1 Lake Park',
+    tags: ['loser'],
+}, {
+    key: '3',
+    firstName: 'Joe',
+    lastName: 'Black',
+    age: 32,
+    address: 'Sidney No. 1 Lake Park',
+    tags: ['cool', 'teacher'],
+
+}];
+
 
 class AdminDashboard extends Component {
 
     state = {
-        targetKeys,
-        selectedKeys: [],
+
     visible: false }
 
     showModal = () => {
@@ -44,26 +57,6 @@ class AdminDashboard extends Component {
     }
 
 
-    handleChange = (nextTargetKeys, direction, moveKeys) => {
-        this.setState({ targetKeys: nextTargetKeys });
-
-        console.log('targetKeys: ', targetKeys);
-        console.log('direction: ', direction);
-        console.log('moveKeys: ', moveKeys);
-        alert("Estas seguro de mandar estas alertas?")
-    }
-
-    handleSelectChange = (sourceSelectedKeys, targetSelectedKeys) => {
-        this.setState({ selectedKeys: [...sourceSelectedKeys, ...targetSelectedKeys] });
-
-        console.log('sourceSelectedKeys: ', sourceSelectedKeys);
-        console.log('targetSelectedKeys: ', targetSelectedKeys);
-    }
-
-    handleScroll = (direction, e) => {
-        console.log('direction:', direction);
-        console.log('target:', e.target);
-    }
     render() {
         const state = this.state;
         return (
@@ -72,16 +65,25 @@ class AdminDashboard extends Component {
             <div className="pedidos">
                 <h2>Alertas</h2>
                 <br/>
-                <Transfer className="dat"
-                    dataSource={mockData}
-                    titles={['Borrador', 'Enviadas']}
-                    targetKeys={state.targetKeys}
-                    selectedKeys={state.selectedKeys}
-                    onChange={this.handleChange}
-                    onSelectChange={this.handleSelectChange}
-                    onScroll={this.handleScroll}
-                    render={item => item.title}
-                />
+                <Table dataSource={data}>
+                    <Column
+                        title="Texto"
+                        dataIndex="texto"
+                        key="texto"
+                    />
+                    <Column
+                        title="Status"
+                        dataIndex="status"
+                        key="status"
+                    />
+                    <Column
+                        title="Eliminar"
+                        dataIndex="status"
+                        key="status"
+                    />
+
+                </Table>
+                
                 <Button className='btn_float' type="primary"  onClick={this.showModal}>Agregar Alerta</Button>
                 <Modal
                     title="Agrega una nueva alerta"
