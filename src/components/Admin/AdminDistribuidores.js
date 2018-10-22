@@ -2,43 +2,19 @@ import React, { Component } from 'react';
 import './Administrador.css';
 import { Table } from 'antd';
 import {Icon} from 'antd';
-import { Button } from 'antd';
+import { Button, Switch } from 'antd';
 import {Link} from 'react-router-dom';
+import {getAdminDistributors, updateDistributor, removeDistributor} from '../../services/distributorService'
+import toastr from 'toastr'
 
-const columns = [
-    { title: '#',
-        dataIndex: 'id',
-        key: 'id',
-        width: '10%',},
-    { title: 'Razón Social',
-        dataIndex: 'cliente',
-        key: 'cliente',
-        width: '30%',},
-    { title: 'RFC',
-        dataIndex: 'rfc',
-        key: 'rfc',
-        width: '20%',},
-    { title: 'Codigo',
-        dataIndex: '',
-        key: '', render: () => <Icon type="download" /> },
+const { Column, ColumnGroup } = Table;
 
-    { title: 'Editar',
-        dataIndex: '',
-        key: '', render: () => <Icon type="edit" /> },
-    { title: 'Status',
-        dataIndex: '',
-        key: '', render: () => <Icon type="pushpin" />  },
-
-
-];
-const data = [
-    { key: 1, id: 'John Brown', cliente:"brendi", arrive:'20 Marzo', total: '$50.00', date: 32, status: 'New York No. 1 Lake Park', description: 'Juan López entregará tu pedido, puedes comunicarte con el al 55 555 55 55' },
-    { key: 2, id: 'John Brown', cliente:"brendi", arrive:'20 Marzo', total: '$50.00', date: 32, status: 'New York No. 1 Lake Park', description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.' },
-    { key: 3, id: 'John Brown', cliente:"brendi", arrive:'20 Marzo', total: '$50.00', date: 32, status: 'New York No. 1 Lake Park', description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.' },
-];
 
 class AdminDistribuidores extends Component {
-    state = { visible: false }
+    state = { 
+        dists:[],
+        visible: false
+     }
 
     showModal = () => {
         this.setState({
@@ -60,7 +36,56 @@ class AdminDistribuidores extends Component {
         });
     }
 
+    componentWillMount(){
+        getAdminDistributors()
+        .then(dists=>{
+            //console.log(dists)
+            this.setState({dists})
+        })
+        .catch(e=>{
+            console.log(e)
+            toastr.error("No se pudieron traer")
+        })
+    }
+
+    changeActive = (bool, dist) => {
+        console.log(bool, dist)
+        dist.active = bool
+        updateDistributor(dist)
+        .then(res=>{
+            console.log(res)
+           let {dists} = this.state
+           dists = dists.map(a=>{
+               if(a._id === dist._id) return dist
+               return a
+           }) 
+           toastr.info("El distribuidor se actualizó")
+           this.setState({dists})
+        })
+        .catch(e=>{
+            console.log(e)
+            toastr.error("No se pudo modificar")
+        })
+    }
+
+    
+    deleteDistributor = (dist) => {
+        if(!window.confirm("¿Estas segur@ de borrar?")) return
+        removeDistributor(dist)
+        .then(()=>{
+            let {dists} = this.state
+            dists = dists.filter(a=>a._id !== dist._id) 
+            this.setState({dists})
+            toastr.warning("Se eliminó")
+         })
+         .catch(e=>{
+             console.log(e)
+             toastr.error("No se pudo borrar")
+         })
+    }
+
     render() {
+        const {dists} = this.state
         return (
             <div style={{ width:'90%', flexWrap:'wrap', display: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow:'1', flexDirection: 'column' }}>
 
@@ -68,14 +93,43 @@ class AdminDistribuidores extends Component {
                 <h2>Distribuidores</h2>
                 <br/>
                 <div className="table">
-                    <Table
-                        columns={columns}
-                        expandedRowRender={record => <p style={{ margin: 0,  width:"100%" }}>{record.description}</p>}
-                        dataSource={data}
+                <Table rowKey="_id" dataSource={dists}>
+                    <Column
+                        title="ID"
+                        dataIndex="_id"
+                        key="_id"
+                        render={(data="", o)=><Link to={`/admin/dist/${o._id}`}>{data.slice(-3)}</Link>}
                     />
+                    <Column
+                        title="Nombre"
+                        dataIndex="business_name"
+                        key="business_name"
+                    />
+                    <Column
+                        title="RFC"
+                        dataIndex="rfc"
+                        key="rfc"
+                    />
+                    <Column
+                        title="Activa"
+                        dataIndex="active"
+                        key="active"
+                        render={(data, o)=><Switch checked={data} onChange={(bool)=>this.changeActive(bool, o)} />}
+                        
+                    />
+                    <Column
+                        title="Eliminar"
+                        dataIndex="remove"
+                        key="remove"
+                        render={(data, o)=><button onClick={()=>this.deleteDistributor(o)} >Eliminar</button>}
+                    />
+
+
+
+                </Table>
                 </div>
-                <Link to="/admin/dist/id">
-                    <Button className='btn_float' type="primary" onClick={this.showModal}>Agregar Distribuidor</Button>
+                <Link to="/admin/dist/new">
+                    <Button className='btn_float' type="primary" >Agregar Distribuidor</Button>
                 </Link>
             </div>
             </div>

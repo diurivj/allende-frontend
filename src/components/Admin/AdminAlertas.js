@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import { Transfer, Button, Modal } from 'antd';
 import './Administrador.css';
 import {AlertaModal} from './AlertaModal';
-import { Table, Divider, Tag, Icon } from 'antd';
+import { Table, Switch, Icon } from 'antd';
+import { Form, Input } from 'antd';
+//services
+import { createAlert, getAdminAlerts, updateAlert, removeAlert } from '../../services/alertService';
+import toastr from 'toastr'
+
+
+const FormItem = Form.Item;
+const { TextArea } = Input;
 
 
 const { Column, ColumnGroup } = Table;
@@ -33,8 +41,22 @@ const data = [{
 class AdminDashboard extends Component {
 
     state = {
+        alerts:[],
+        visible: false ,
+        newAlert:{}
+    }
 
-    visible: false }
+    componentWillMount(){
+        this.getAlerts()
+    }
+
+    onChange = (e) => {
+        const field = e.target.name
+        const value = e.target.value
+        const {newAlert} = this.state
+        newAlert[field] = value
+        this.setState({newAlert})
+    }
 
     showModal = () => {
         this.setState({
@@ -43,10 +65,13 @@ class AdminDashboard extends Component {
     }
 
     handleOk = (e) => {
-        console.log(e);
-        this.setState({
-            visible: false,
-        });
+        
+        createAlert(this.state.newAlert)
+        .then(alert=>{
+            const {alerts} = this.state
+            alerts.unshift(alert)
+            this.setState({alerts, visible:false})
+        })
     }
 
     handleCancel = (e) => {
@@ -56,31 +81,89 @@ class AdminDashboard extends Component {
         });
     }
 
+    getAlerts = () => {
+        getAdminAlerts()
+        .then(alerts=>{
+            this.setState({alerts})
+        })
+        .catch(e=>{
+            console.log(e)
+            toastr.error("No se pudieron cargar")
+        })
+    }
+
+    changeActive = (bool, alert) => {
+        alert.active = bool
+        updateAlert(alert)
+        .then(()=>{
+           let {alerts} = this.state
+           alerts = alerts.map(a=>{
+               if(a._id === alert._id) return alert
+               return a
+           }) 
+           this.setState({alerts})
+        })
+        .catch(e=>{
+            console.log(e)
+            toastr.error("No se pudieron cargar")
+        })
+    }
+
+    deleteAlert = (alert) => {
+        if(!window.confirm("¿Estas segur@ de borrar?")) return
+        removeAlert(alert)
+        .then(()=>{
+            let {alerts} = this.state
+            alerts = alerts.filter(a=>a._id !== alert._id) 
+            this.setState({alerts})
+         })
+         .catch(e=>{
+             console.log(e)
+             toastr.error("No se pudieron cargar")
+         })
+    }
+
 
     render() {
-        const state = this.state;
+        const {alerts} = this.state;
         return (
             <div style={{ width:'90%', flexWrap:'wrap', display: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow:'1', flexDirection: 'column' }}>
 
             <div className="pedidos">
                 <h2>Alertas</h2>
                 <br/>
-                <Table dataSource={data}>
+                <Table dataSource={alerts}>
                     <Column
-                        title="Texto"
-                        dataIndex="texto"
-                        key="texto"
+                        title="ID"
+                        dataIndex="_id"
+                        key="_id"
+                        render={(data="")=>data.slice(-3)}
                     />
                     <Column
-                        title="Status"
-                        dataIndex="status"
-                        key="status"
+                        title="Nombre"
+                        dataIndex="name"
+                        key="name"
+                    />
+                    <Column
+                        title="Texto"
+                        dataIndex="text"
+                        key="text"
+                    />
+                    <Column
+                        title="Activa"
+                        dataIndex="active"
+                        key="active"
+                        render={(data, o)=><Switch checked={data} onChange={(bool)=>this.changeActive(bool, o)} />}
+                        
                     />
                     <Column
                         title="Eliminar"
-                        dataIndex="status"
-                        key="status"
+                        dataIndex="remove"
+                        key="remove"
+                        render={(data, o)=><button onClick={()=>this.deleteAlert(o)} >Eliminar</button>}
                     />
+
+
 
                 </Table>
                 
@@ -91,7 +174,13 @@ class AdminDashboard extends Component {
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
                 >
-                    <AlertaModal />
+                     <Form >
+                        <FormItem label="Contenido de la Alerta">
+                            <Input placeholder="Nombre de la alerta" onChange={this.onChange} name="name" />
+                            <TextArea placeholder="Texto de la alerta" onChange={this.onChange} name="text" autosize={{ minRows: 2, maxRows: 6 }} />
+                        </FormItem>
+                    </Form>
+    
                 </Modal>
 
             </div>

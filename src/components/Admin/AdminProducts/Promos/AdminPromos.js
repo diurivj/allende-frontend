@@ -1,92 +1,162 @@
-import React, {Component} from 'react';
-import {getPromos} from "../../../../services/productsServices";
-import { Button, Modal, Icon, Table, Card } from 'antd';
+import React from 'react';
+import { Button, Modal, Icon, Table } from 'antd';
+import toastr from 'toastr';
 import {ModalFormPromo} from "./ModalFormPromo";
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
+import {createPromo, getPromos, updatePromo, removePromo} from '../../../../services/promoService'
 
-const { Meta } = Card;
+const { Column, ColumnGroup } = Table;
 
-class AdminPromos extends Component{
-    state = {
-        products: [],
-        promos: [],
-        visible: false,
-        columns: [
-            { title: 'ID', dataIndex: 'id', align: 'center', width: 150 },
-            { title: 'Nombre', dataIndex: 'name', align: 'center', width: 250 },
-            { title: 'Precio', dataIndex: 'price', align: 'center', width: 100,
-                render: (i) => `$ ${i}`
-            },
-            { title: 'Imagen', dataIndex: 'image', align: 'center', width: 300,
-                render: () => <img src='https://s3.amazonaws.com/kichink/items_865660_246443_20160104113504_b.jpg' alt='imagen' width='10%' />,
-            },
-            { title: 'Stock', dataIndex: 'stock', align: 'center', width: 100 },
-            { title: 'Editar',
-                dataindex: 'editar',
-                width: 100,
-                align: 'center',
-                render: (i, obj) => <a style={{  }} onClick={()=>this.showModal(obj)}> <Icon type="edit" /> </a>
-            },
-            { title: 'Borrar',
-                dataindex: 'action',
-                width: 100,
-                align: 'center',
-                render: (i, obj) => <a style={{ color: 'red' }} onClick={()=>this.showModal(obj)}> <Icon type="delete" /> </a>
-            }
-        ],
-    };
+class AdminPromos extends React.Component{
 
-    showModal = (obj) => {
-        this.setState({visible: true});
-    };
+  state = {
+    promos: [],
+    visible: false,
+    promo:{},
+    editing:false
+  }
 
-    handleCancel = () => {
-        this.setState({visible: false});
-    };
+  showModal = () => {
+    this.setState({visible: true, editing:false, promo:{}});
+  };
 
+  handleCancel = () => {
+    this.setState({visible: false});
+  };
 
-    componentWillMount(){
-
-      getPromos()
-    .then(promos => {
-      this.setState({promos});
+  handleOk = () => {
+    const {promo} = this.state
+    createPromo(promo)
+    .then(p=>{
+      const {promos} = this.state
+      promos.unshift(p)
+      this.setState({promos, visible:false})
+      toastr.success("Se agregó un producto nuevo")
     })
-    .catch(e => console.log(e))
+    .catch(e=>{
+      console.log(e)
+      toastr.error("No se pudo crear")
+    })
+  };
+
+  onChange = (e) => {
+    const {promo} = this.state
+    const field = e.target.name
+    const value = e.target.value
+    promo[field] = value
+    this.setState({promo})
+  }
+
+  componentWillMount(){
+    this.getPromos()
+  }
+
+  getPromos = () => {
+    getPromos()
+    .then(promos=>{
+      this.setState({promos})
+    })
+    .catch(e=>{
+      console.log(e)
+      toastr.error("No se pudieron cargar")
+    })
+  }
+
+  editPromo = (promo) => {
+    this.setState({promo, visible:true, editing:true})
+  }
+
+  updatePromo = () => {
+    const {promo} = this.state
+    updatePromo(promo)
+    .then(prom=>{
+      let {promos} = this.state
+      promos = promos.map(p=>{
+        if(p._id===prom._id) return prom
+        return p
+      })
+      this.setState({promos, visible:false})
+      toastr.info("Se actualizó")
+    })
+    .catch(e=>{
+      console.log(e)
+      toastr.error("No se pudo crear")
+    })
+  }
+
+  deletePromo = (promo) => {
+    if(!window.confirm("¿Esta segur@ de borrar?")) return
+    removePromo(promo)
+    .then(()=>{
+      let {promos} = this.state
+      promos = promos.filter(p=>p._id!==promo._id)
+      this.setState({promos})
+      toastr.warning("Se borró")
+    })
+    .catch(e=>{
+      console.log(e)
+      toastr.error("No se pudo borrar")
+    })
   }
 
   render(){
-      const {visible, columns} = this.state;
-    const {promos} = this.state;
+    const {visible, promos, promo, editing} = this.state;
     return(
         <div style={{ width:'90%', flexWrap:'wrap', display: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow:'1', flexDirection: 'column' }}>
           <div className="pedidos">
             <h2>Promociones</h2>
             <br/>
-            <Table rowKey="name"  columns={columns} dataSource={promos} style={{width: '100%', maxHeight:"100vh"}} />
-            <Button className='btn_float' onClick={this.showModal} type="primary" style={{marginBottom: 20}}>Crear Nueva Promoción</Button>
+            <Table rowKey="_id" dataSource={promos}>
+                    <Column
+                        title="ID"
+                        dataIndex="_id"
+                        key="_id"
+                        render={(data="")=>data.slice(-3)}
+                    />
+                    <Column
+                        title="Nombre"
+                        dataIndex="name"
+                        key="name"
+                    />
+                    <Column
+                        title="Precio"
+                        dataIndex="price"
+                        key="price"
+                    />
+                     <Column
+                        title="Stock"
+                        dataIndex="stock"
+                        key="stock"
+                    />
+                    <Column
+                        title="Editar"
+                        dataIndex="edit"
+                        key="edit"
+                        render={(data="", o)=><Icon onClick={()=>this.editPromo(o)} type="edit" />}
+                        
+                    />
+                    <Column
+                        title="Eliminar"
+                        dataIndex="remove"
+                        key="remove"
+                        render={(data, o)=><button onClick={()=>this.deletePromo(o)} >Eliminar</button>}
+                    />
+                </Table>
+        <Button className='btn_float' onClick={this.showModal} type="primary" style={{marginBottom: 20}}>Crear Nueva Promoción</Button>
 
-            <Modal visible={visible} title="Crear una promoción" onOk={this.handleOk} onCancel={this.handleCancel}
-                   footer={[
-                     <Button type='danger' key="cancel" onClick={this.handleCancel}>Cancelar</Button>,
-                     <Button type='primary' key="submit" onClick={this.handleOk}>Crear promoción</Button>
-                   ]}
-            >
-              <ModalFormPromo/>
-            </Modal>
-
+        <Modal visible={visible} title="Crear nueva promoción" onOk={this.handleOk} onCancel={this.handleCancel}
+          footer={[
+            <Button type='danger' key="cancel" onClick={this.handleCancel}>Cancelar</Button>,
+            <Button type='primary' key="submit" onClick={editing ? this.updatePromo:this.handleOk}>{editing ? "Actualizar":"Crear promoción"}</Button>
+          ]}
+        >
+          <ModalFormPromo {...promo} onChange={this.onChange} />
+        </Modal>
       </div>
         </div>
     )
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  promos: state.promos
-});
 
-const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(getPromos, dispatch)
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminPromos);
+export default AdminPromos;
