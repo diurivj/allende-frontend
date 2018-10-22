@@ -3,7 +3,7 @@ import './Admin.css';
 import { Table } from 'antd';
 import {Icon} from 'antd';
 import { Modal, Button } from 'antd';
-import NewProspectoModal from './NewProspectoModal';
+import {NewProspectoModal} from './NewProspectoModal';
 
 const columns = [
     { title: 'Razón Social',

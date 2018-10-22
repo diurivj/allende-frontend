@@ -29,16 +29,18 @@ export const CardProductDisplay  = ({
                     <img src="http://cerveceriaallende.mx/wp-content/uploads/2016/02/BrownAleFinal2.png" alt=""/>
                 </div>
                 <div className="inf_card">
+                    
                     <p>Fermentación: {fermentation}</p>
                     <p>Alc. Vol.: {alc_vol}</p>
                     <p>IBUS: {ibus}</p>
-                    <p>Color: </p>
-                    <p>Aroma: </p>
-                    <p>Sabor: </p>
-                    <p>Tiempo de elaboración: </p>
-                    <p>Temperatura recomendad: </p>
-                    <p>Maridaje: </p>
-
+                    <p>Color: {color}</p>
+                    <p>Aroma: {aroma}</p>
+                    <p>Sabor: {sabor}</p>
+                    <p>Tiempo de elaboración: {elab_time}</p>
+                    <p>Temperatura recomendad: {temp}</p>
+                    <p>Maridaje: {pairing}</p>
+                    <p>Precio: $ {price}</p>
+                    <p>Stock: {stock}</p>
                 </div>
             </div>
         </Card>
