@@ -13,7 +13,7 @@ const FormItem = Form.Item;
 const { TextArea } = Input;
 
 
-const { Column, ColumnGroup } = Table;
+const { Column } = Table;
 
 
 const data = [{
@@ -160,7 +160,7 @@ class AdminDashboard extends Component {
                         title="Eliminar"
                         dataIndex="remove"
                         key="remove"
-                        render={(data, o)=><button onClick={()=>this.deleteAlert(o)} >Eliminar</button>}
+                        render={(data, o)=><Button type="primary" onClick={()=>this.deleteAlert(o)} >Eliminar</Button>}
                     />
 
 
@@ -177,7 +177,7 @@ class AdminDashboard extends Component {
                      <Form >
                         <FormItem label="Contenido de la Alerta">
                             <Input placeholder="Nombre de la alerta" onChange={this.onChange} name="name" />
-                            <TextArea placeholder="Texto de la alerta" onChange={this.onChange} name="text" autosize={{ minRows: 2, maxRows: 6 }} />
+                            <TextArea maxLength="80" placeholder="Texto de la alerta" onChange={this.onChange} name="text" autosize={{ minRows: 2, maxRows: 6 }} />
                         </FormItem>
                     </Form>
     

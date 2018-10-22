@@ -121,7 +121,7 @@ class AdminDistribuidores extends Component {
                         title="Eliminar"
                         dataIndex="remove"
                         key="remove"
-                        render={(data, o)=><button onClick={()=>this.deleteDistributor(o)} >Eliminar</button>}
+                        render={(data, o)=><Button type="primary" onClick={()=>this.deleteDistributor(o)} >Eliminar</Button>}
                     />
 
 

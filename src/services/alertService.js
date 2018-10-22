@@ -31,6 +31,16 @@ export const getAdminAlerts = () => {
     .catch(e=>e)
 }
 
+export const getAlerts = () => {
+    return axios.get(url + 'alerts', {
+        headers:{
+            "Authorization": getToken()
+        }
+    } )
+    .then(res=>res.data)
+    .catch(e=>e)
+}
+
 export const createAlert = (item) => {
     return axios.post(url + 'alerts', item, {
         headers:{

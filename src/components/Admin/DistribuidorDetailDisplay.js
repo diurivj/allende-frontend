@@ -120,7 +120,7 @@ componentWillMount(){
             <div className="form_flex">
             
               <FormItem label="Nombre o Razón Social"></FormItem>
-              <Input placeholder="Nombre"
+              <Input placeholder="Razón Social"
                      type='text'
                      name='business_name'
                      onChange={this.handleInput}
@@ -128,7 +128,7 @@ componentWillMount(){
                      />
 
               <FormItem label="RFC"></FormItem>
-              <Input placeholder="18 digitos"
+              <Input placeholder="13 digitos"
                      type='text'
                      name='rfc'
                      onChange={this.handleInput}
@@ -165,7 +165,7 @@ componentWillMount(){
 
 
             <div className="form_flex">
-              <FormItem label="Linea de credito:"></FormItem>
+              <FormItem label="Línea de crédito:"></FormItem>
               <Input placeholder="Cantidad"
                      type="number"
                      name='credit_amount'
@@ -173,8 +173,8 @@ componentWillMount(){
                      value={credit_amount}
               />
 
-              <FormItem label="Dias de credito:"></FormItem>
-              <Input placeholder="Dias"
+              <FormItem label="Días de crédito:"></FormItem>
+              <Input placeholder="Días"
                      type="number"
                      name='credit_days'
                      onChange={this.handleInput}
@@ -190,7 +190,7 @@ componentWillMount(){
               />
             </div>
 
-            <FormItem label="Direccion Fiscal">
+            <FormItem label="Dirección Fiscal">
               <div className="form_flex">
                 <Input placeholder="Calle"
                        type="text"
@@ -212,7 +212,7 @@ componentWillMount(){
                 />
               </div>
               <div className="form_flex">
-                <Input placeholder="CP"
+                <Input placeholder="Código Postal"
                        type='number'
                        name="business_address_zip_code"
                        onChange={this.handleInput}
@@ -233,9 +233,9 @@ componentWillMount(){
               </div>
             </FormItem>
 
-            <Checkbox onChange={this.onChange}>Utilizar también como dirección de enterga</Checkbox>
+            {/* <Checkbox onChange={this.onChange}>Utilizar también como dirección de enterga</Checkbox> */}
 
-            <FormItem label="Direccion Entrega">
+            <FormItem label="Dirección Entrega">
               <div className="form_flex">
                 <Input placeholder="Calle"
                        type="text"
@@ -258,7 +258,7 @@ componentWillMount(){
               </div>
 
               <div className="form_flex">
-                <Input placeholder="CP"
+                <Input placeholder="Código Postal"
                        type='number'
                        name="delivery_address_zip_code"
                        onChange={this.handleInput}

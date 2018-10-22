@@ -138,7 +138,7 @@ class AdminPromos extends React.Component{
                         title="Eliminar"
                         dataIndex="remove"
                         key="remove"
-                        render={(data, o)=><button onClick={()=>this.deletePromo(o)} >Eliminar</button>}
+                        render={(data, o)=><Button type="primary" onClick={()=>this.deletePromo(o)} >Eliminar</Button>}
                     />
                 </Table>
         <Button className='btn_float' onClick={this.showModal} type="primary" style={{marginBottom: 20}}>Crear Nueva Promoción</Button>
