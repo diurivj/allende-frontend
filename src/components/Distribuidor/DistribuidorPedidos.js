@@ -40,8 +40,20 @@ class DistribuidorPedidos extends Component {
         profile:{
             credit_amount:0
         },
-        products:[]
+        products:[],
+        selected:[]
      }
+
+    addProduct = (id, quantity) => {
+        if(!quantity || quantity<1) return
+        const product = this.state.products.find(p=>p._id === id)
+        product.quantity = quantity
+        console.log(quantity)
+        console.log(product)
+        const {selected} = this.state
+        selected.unshift(product)
+        this.setState({selected})
+    }
 
     componentWillMount(){
         //2.- pedir los datos del usuario
@@ -85,7 +97,7 @@ class DistribuidorPedidos extends Component {
         });
     }
     render() {
-        const {profile, products} = this.state
+        const {profile, products, selected} = this.state
         return (
             <div className="pedidos">
                 <h2>Mis pedidos</h2>
@@ -123,6 +135,8 @@ class DistribuidorPedidos extends Component {
                 >
                     <DistribuidorNewPedido 
                         products={products}
+                        addProduct={this.addProduct}
+                        selected={selected}
                     />
                 </Modal>
             </div>

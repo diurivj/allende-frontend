@@ -7,18 +7,19 @@ const FormItem = Form.Item;
 const { TextArea } = Input;
 const Option = Select.Option;
 
+let val
+let num
+
 function handleChange(value) {
-    console.log(`selected ${value}`);
+    val = value
 }
 
 function onChange(value) {
-    console.log('changed', value);
-}
-function onChange(date, dateString) {
-    console.log(date, dateString);
+    num = value
 }
 
-export const DistribuidorNewPedido  = ({products=[]}) => {
+
+export const DistribuidorNewPedido  = ({products=[], addProduct, selected=[]}) => {
     console.log(products)
     return(
         <div >
@@ -31,18 +32,18 @@ export const DistribuidorNewPedido  = ({products=[]}) => {
                 <div className="flexito">
                     
                     <FormItem label="Producto">
-                        <Select defaultValue="lucy" style={{ width: 120 }} onChange={handleChange}>
+                        <Select style={{ width: 120 }} onChange={handleChange}>
                             {products.map((p,i)=><Option key={i} value={p._id}>{p.name}</Option>)}
                         </Select>
                     </FormItem>
                     <FormItem label="Caja(24pzas)">
-                       <InputNumber  min={1} max={100} defaultValue={10} onChange={onChange} />
+                       <InputNumber  min={1} max={100} defaultValue={0} onChange={onChange} />
                     </FormItem>
                     <FormItem label="Precio u">
-                       <InputNumber  defaultValue={10}  />
+                       <InputNumber  defaultValue={0}  />
                     </FormItem>
                     <FormItem label=" ">
-                       <Button type="primary">Agregar</Button>
+                       <Button onClick={()=>addProduct(val, num)} type="primary">Agregar</Button>
                     </FormItem>
                 </div>
                 <div className="flexito">
@@ -55,15 +56,20 @@ export const DistribuidorNewPedido  = ({products=[]}) => {
                         </Select>
                     </FormItem>
                     <FormItem label="Pieza">
-                       <InputNumber  defaultValue={10} disable />
+                       <InputNumber  defaultValue={0} disable />
                     </FormItem>
                     <FormItem label="Precio u">
-                       <InputNumber  defaultValue={10}  />
+                       <InputNumber  defaultValue={0}  />
                     </FormItem>
                     <FormItem label=" ">
                        <Button type="primary">Agregar</Button>
                     </FormItem>
                 </div>
+
+                <div>
+                    {selected.map((p,i)=><p key={i}>{p.name} - {p.quantity}</p>)}
+                </div>
+
                 <FormItem >Total: $400.00</FormItem>
 
                 <FormItem label="Comentarios">
