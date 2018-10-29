@@ -32,7 +32,7 @@ class LoginContainer extends Component{
     };
     logIn(auth)
       .then(user => {
-        console.log(r)
+        // console.log(user)
         toastr.success(`Bienvenido ${user.role}`); //cambiar por username
         if(user.role === 'ADMIN') {
           this.props.history.push('/admin');
