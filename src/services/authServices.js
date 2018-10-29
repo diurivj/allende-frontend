@@ -12,5 +12,13 @@ export function logIn(user){
     body: JSON.stringify(user)
   })
     .then(r => r.json())
-    .then(user => user);
+    .then(obj =>{
+      saveToken(obj)
+      return obj.user
+    });
 };
+
+function saveToken(obj){
+  localStorage.setItem('token', obj.token)
+  localStorage.setItem('user', JSON.stringify(obj.user))
+}
