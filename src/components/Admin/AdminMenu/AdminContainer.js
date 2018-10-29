@@ -9,7 +9,7 @@ class AdminContainer extends Component{
       return this.props.history.push('/');
     }
     const user = localStorage.getItem('user');
-    if (user.role === 'user') return this.props.history.push('/dist');
+    if (user.role !== 'ADMIN') return this.props.history.push('/dist');
   }
 
   logOut = () => {
