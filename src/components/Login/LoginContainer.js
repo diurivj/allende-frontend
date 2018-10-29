@@ -31,14 +31,10 @@ class LoginContainer extends Component{
       password: e.target.password.value
     };
     logIn(auth)
-      .then(r => {
+      .then(user => {
         console.log(r)
-        let user = r.user;
-        let token = r.access_token;
         toastr.success(`Bienvenido ${user.role}`); //cambiar por username
-        localStorage.setItem('user', JSON.stringify(user));
-        localStorage.setItem('access_token', JSON.stringify(token));
-        if(user.role === 'admin') {
+        if(user.role === 'ADMIN') {
           this.props.history.push('/admin');
         } else {
           this.props.history.push('/dist');
