@@ -8,7 +8,8 @@ class AdminContainer extends Component{
     if (!localStorage.getItem('user')){
       return this.props.history.push('/');
     }
-    const user = localStorage.getItem('user');
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log(user)
     if (user.role !== 'ADMIN') return this.props.history.push('/dist');
   }
 
