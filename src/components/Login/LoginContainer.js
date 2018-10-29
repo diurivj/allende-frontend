@@ -32,6 +32,7 @@ class LoginContainer extends Component{
     };
     logIn(auth)
       .then(r => {
+        console.log(r)
         let user = r.user;
         let token = r.access_token;
         toastr.success(`Bienvenido ${user.role}`); //cambiar por username
