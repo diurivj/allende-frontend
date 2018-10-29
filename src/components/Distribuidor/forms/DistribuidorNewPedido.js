@@ -22,9 +22,9 @@ export const DistribuidorNewPedido  = () => {
         <div >
             <Form >
                 <h4>Distribuidor</h4>
-                <FormItem label="Fecha de entrega requerida">
+                {/* <FormItem label="Fecha de entrega requerida">
                     <DatePicker  onChange={onChange} />
-                </FormItem>
+                </FormItem> */}
 
                 <div className="flexito">
                     <FormItem label="IPA" style={{ width:"60%" }}>

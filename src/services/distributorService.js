@@ -1,5 +1,6 @@
 import axios from 'axios'
 const url = "https://backendallende.herokuapp.com/"
+const url2 = "https://backendallende.herokuapp.com/distributors/"
 
 export const getOneDistributor = (id) => {
     return axios.get(url + 'distributors/' + id, {
@@ -51,6 +52,31 @@ export const createDistributor = (item) => {
     .catch(e=>e)
 }
 
+
+//servicios para el distribuidor
+
+//su propio perfil
+export const getSelfProfile = () => {
+    return axios.get(url2 + "profile", {
+        headers:{
+            "Authorization": getToken()
+        }
+    } )
+    .then(res=>res.data)
+    .catch(e=>e)
+}
+
+//modificar su propio perfil
+export const updateSelfProfile = (profile) => {
+    return axios.post(url2 + "profile", profile,  {
+        headers:{
+            "Authorization": getToken()
+        }
+    } )
+    .then(res=>res.data)
+    .catch(e=>e)
+}
+
 function getToken() {
-    return localStorage.getItem('access_token')
+    return localStorage.getItem('token')
 }

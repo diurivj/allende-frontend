@@ -4,16 +4,16 @@ import DistribuidorRoutes from './MenuDistribuidor/DistribuidorRoutes';
 
 class DistribuidorContainer extends Component{
 
-   /* componentWillMount() {
+   componentWillMount() {
         if(!localStorage.getItem('user')) this.props.history.push('/');
     }
 
-    logOut = () => {
-        localStorage.removeItem('user');
-        localStorage.removeItem('access_token');
-        this.props.history.push('/')
-    };
-*/
+    // logOut = () => {
+    //     localStorage.removeItem('user');
+    //     localStorage.removeItem('access_token');
+    //     this.props.history.push('/')
+    // };
+
     render(){
         return(
             <div style={{ display: 'flex'}}>

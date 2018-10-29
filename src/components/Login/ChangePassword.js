@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Card, Icon, Input, Form, Button} from 'antd';
 
-const url = "https://backendallende.herokuapp.com/auth/"
+const url = "https://backendallende.herokuapp.com/auth/change_password/"
 
 class ChangePassword extends Component {
 

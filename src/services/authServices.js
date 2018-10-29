@@ -19,6 +19,7 @@ export function logIn(user){
 };
 
 function saveToken(obj){
-  localStorage.setItem('token', obj.access_token)
+  console.log(obj)
+  localStorage.setItem('token', obj.token)
   localStorage.setItem('user', JSON.stringify(obj.user))
 }

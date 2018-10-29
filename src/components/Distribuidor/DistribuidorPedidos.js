@@ -3,6 +3,8 @@ import './Admin.css';
 import { Table, Button, Modal } from 'antd';
 import {Icon} from 'antd';
 import {DistribuidorNewPedido} from './forms/DistribuidorNewPedido';
+import {getSelfProfile} from '../../services/distributorService'
+import toastr from 'toastr'
 
 const columns = [
     { title: '#Pedido',
@@ -30,7 +32,25 @@ const data = [
 
 
 class DistribuidorPedidos extends Component {
-    state = { visible: false }
+    state = { 
+        visible: false,
+        user:{},
+        profile:{
+            credit_amount:0
+        }
+     }
+
+    componentWillMount(){
+        //2.- pedir los datos del usuario
+        getSelfProfile()
+        .then(user=>{
+            this.setState({profile:user.distributor})
+            this.setState({user})
+        })
+        .catch(e=>{
+            toastr.error("No se pudieron cargar tus datos")
+        })
+    }
 
     showModal = () => {
         this.setState({
@@ -52,15 +72,24 @@ class DistribuidorPedidos extends Component {
         });
     }
     render() {
+        const {profile, user} = this.state
         return (
             <div className="pedidos">
                 <h2>Mis pedidos</h2>
                 <br/>
                 <div className="box_pedidos">
                     <div className="pedido">
-                        <h3>Distribuidor Bajio</h3>
-                        <p>Tu crédito es de: </p>
-                        <p>Tu plazo de pago es de: </p>
+                        <h3>Distribuidor {profile.business_name}</h3>
+                        <p>Tu monto de credito es:
+                            <strong> ${profile.credit_amount.toLocaleString(2, { minimumFractionDigits: 2 })} MXN </strong>
+                            </p>
+                        <p>Tu crédito disponible es de: 
+                            <strong> ${profile.credit_amount.toLocaleString(2, { minimumFractionDigits: 2 })} MXN </strong>
+                        </p>
+                        <p>Tu plazo de pago es de: 
+                            <strong>{profile.credit_days} días</strong>
+                        
+                        </p>
 
                     </div>
                     <br/>
