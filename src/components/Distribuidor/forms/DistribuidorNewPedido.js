@@ -46,6 +46,25 @@ export const DistribuidorNewPedido  = () => {
                        <Button type="primary">Agregar</Button>
                     </FormItem>
                 </div>
+                <div className="flexito">
+                    
+                    <FormItem label="Promoción">
+                        <Select defaultValue="lucy" style={{ width: 120 }} onChange={handleChange}>
+                            <Option value="jack">Jack</Option>
+                            <Option value="lucy">Lucy</Option>
+                            <Option value="Yiminghe">yiminghe</Option>
+                        </Select>
+                    </FormItem>
+                    <FormItem label="Pieza">
+                       <InputNumber  defaultValue={10} disable />
+                    </FormItem>
+                    <FormItem label="Precio u">
+                       <InputNumber  defaultValue={10}  />
+                    </FormItem>
+                    <FormItem label=" ">
+                       <Button type="primary">Agregar</Button>
+                    </FormItem>
+                </div>
                 <FormItem >Total: $400.00</FormItem>
 
                 <FormItem label="Comentarios">
