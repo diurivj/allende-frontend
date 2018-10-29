@@ -140,7 +140,7 @@ export const ClienteDetailDisplay  = ({
             <br/>
 
             <div style={{float:"right"}}>
-              <Link to="/admin/dist">
+              <Link to="/dist/clientes">
                 <Button style={{marginRight:"20px"}}>Cancelar</Button>
               </Link>
             
