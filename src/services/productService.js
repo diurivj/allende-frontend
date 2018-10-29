@@ -31,7 +31,7 @@ export const updateProduct = (item) => {
     .catch(e=>e)
 }
 
-export const getProducts = () => {
+export const getProducts = (active) => {
     return axios.get(url, {
         headers:{
             "Authorization": getToken()
@@ -52,5 +52,5 @@ export const createProduct = (item) => {
 }
 
 function getToken() {
-    return localStorage.getItem('access_token')
+    return localStorage.getItem('token')
 }

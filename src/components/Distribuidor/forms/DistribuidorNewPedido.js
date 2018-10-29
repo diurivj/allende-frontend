@@ -18,7 +18,8 @@ function onChange(date, dateString) {
     console.log(date, dateString);
 }
 
-export const DistribuidorNewPedido  = () => {
+export const DistribuidorNewPedido  = ({products=[]}) => {
+    console.log(products)
     return(
         <div >
             <Form >
@@ -31,9 +32,7 @@ export const DistribuidorNewPedido  = () => {
                     
                     <FormItem label="Producto">
                         <Select defaultValue="lucy" style={{ width: 120 }} onChange={handleChange}>
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="Yiminghe">yiminghe</Option>
+                            {products.map((p,i)=><Option key={i} value={p._id}>{p.name}</Option>)}
                         </Select>
                     </FormItem>
                     <FormItem label="Caja(24pzas)">

@@ -5,6 +5,8 @@ import {Icon} from 'antd';
 import {DistribuidorNewPedido} from './forms/DistribuidorNewPedido';
 import {getSelfProfile} from '../../services/distributorService'
 import toastr from 'toastr'
+import { getProducts } from '../../services/productService';
+
 
 const columns = [
     { title: '#Pedido',
@@ -37,7 +39,8 @@ class DistribuidorPedidos extends Component {
         user:{},
         profile:{
             credit_amount:0
-        }
+        },
+        products:[]
      }
 
     componentWillMount(){
@@ -49,6 +52,16 @@ class DistribuidorPedidos extends Component {
         })
         .catch(e=>{
             toastr.error("No se pudieron cargar tus datos")
+        })
+        this.getProducts()
+        //getPromos()
+    }
+
+    getProducts = () => {
+        getProducts()
+        .then(products=>{
+            console.log(products)
+            this.setState({products})
         })
     }
 
@@ -72,7 +85,7 @@ class DistribuidorPedidos extends Component {
         });
     }
     render() {
-        const {profile, user} = this.state
+        const {profile, products} = this.state
         return (
             <div className="pedidos">
                 <h2>Mis pedidos</h2>
@@ -108,7 +121,9 @@ class DistribuidorPedidos extends Component {
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
                 >
-                    <DistribuidorNewPedido />
+                    <DistribuidorNewPedido 
+                        products={products}
+                    />
                 </Modal>
             </div>
         );
