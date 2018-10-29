@@ -6,6 +6,8 @@ import {DistribuidorNewPedido} from './forms/DistribuidorNewPedido';
 import {getSelfProfile} from '../../services/distributorService'
 import toastr from 'toastr'
 import { getProducts } from '../../services/productService';
+import {getPromos} from '../../services/promoService'
+import {createOrder, getOrders} from '../../services/orderService'
 
 
 const columns = [
@@ -41,18 +43,62 @@ class DistribuidorPedidos extends Component {
             credit_amount:0
         },
         products:[],
-        selected:[]
+        promos:[],
+        selected:[],
+        comments:"",
+        orders:[]
      }
 
     addProduct = (id, quantity) => {
         if(!quantity || quantity<1) return
         const product = this.state.products.find(p=>p._id === id)
         product.quantity = quantity
-        console.log(quantity)
-        console.log(product)
-        const {selected} = this.state
+        product.total = product.quantity * product.price
+        let {selected} = this.state
+        const s = selected.find(p=>p._id === product._id)
+        if(s) selected = selected.filter(p=>p._id!==s._id)
         selected.unshift(product)
         this.setState({selected})
+    }
+
+    addPromo = (id, quantity) => {
+        console.log(id, quantity)
+        if(!quantity || quantity<1) return
+        const promo = this.state.promos.find(p=>p._id === id)
+        promo.quantity = quantity
+        promo.total = promo.quantity * promo.price
+        let {selected} = this.state
+        const s = selected.find(p=>p._id === promo._id)
+        if(s) selected = selected.filter(p=>p._id!==s._id)
+        selected.unshift(promo)
+        this.setState({selected})
+    }
+
+    removeProduct = (product) => {
+        let {selected} = this.state
+        selected = selected.filter(p=>p._id !== product._id)
+        this.setState({selected})
+    }
+
+    commentsChange = (e) => {
+        let {comments} = this.state
+        comments = e.target.value
+        this.setState({comments})
+    }
+
+    submitOrder = () => {
+        const {comments, selected} = this.state
+        const order = {
+            comments,
+            products:selected
+        }
+        createOrder(order)
+        .then(o=>{
+            const {orders} = this.state
+            orders.unshift(orders)
+            this.setState({orders})
+            toastr.success("Tu orden se creo")
+        })
     }
 
     componentWillMount(){
@@ -66,16 +112,32 @@ class DistribuidorPedidos extends Component {
             toastr.error("No se pudieron cargar tus datos")
         })
         this.getProducts()
-        //getPromos()
+        this.getPromos()
+        this.getOrders()
+    }
+
+    getOrders = () => {
+        getOrders()
+        .then(orders=>{
+            this.setState({orders})
+            console.log(orders)
+        })
     }
 
     getProducts = () => {
         getProducts()
         .then(products=>{
-            console.log(products)
             this.setState({products})
         })
     }
+
+    getPromos = () => {
+        getPromos()
+        .then(promos=>{
+            this.setState({promos})
+        })
+    }
+
 
     showModal = () => {
         this.setState({
@@ -84,7 +146,9 @@ class DistribuidorPedidos extends Component {
     }
 
     handleOk = (e) => {
-        console.log(e);
+    
+        this.submitOrder()
+
         this.setState({
             visible: false,
         });
@@ -97,7 +161,7 @@ class DistribuidorPedidos extends Component {
         });
     }
     render() {
-        const {profile, products, selected} = this.state
+        const {promos, profile, products, selected} = this.state
         return (
             <div className="pedidos">
                 <h2>Mis pedidos</h2>
@@ -135,8 +199,14 @@ class DistribuidorPedidos extends Component {
                 >
                     <DistribuidorNewPedido 
                         products={products}
+                        promos={promos}
                         addProduct={this.addProduct}
                         selected={selected}
+                        discount={profile.discount}
+                        removeProduct={this.removeProduct}
+                        addPromo={this.addPromo}
+                        commentsChange={this.commentsChange}
+                        submitOrder={this.submitOrder}
                     />
                 </Modal>
             </div>
