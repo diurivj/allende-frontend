@@ -1,7 +1,8 @@
 import React from 'react';
 import '../Admin.css';
-import { Form, Input, Select, InputNumber, Button, Icon} from 'antd';
+import { Form, Input, Select, InputNumber, Button, Icon, Table} from 'antd';
 import FontAwesome from "react-fontawesome"
+const { Column, ColumnGroup } = Table;
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -64,6 +65,42 @@ export const DistribuidorNewPedido  = ({products=[]}) => {
                        <Button type="primary">Agregar</Button>
                     </FormItem>
                 </div>
+                <Table rowKey="_id" >
+                        <Column
+                            title="Nombre"
+                            dataIndex="name"
+                            key="name"
+                        />
+            
+                        <Column
+                            title="Cantidad"
+                            dataIndex="num"
+                            key="num"
+                        />
+                        <Column
+                            title="Precio/u"
+                            dataIndex="price"
+                            key="price"
+                        />
+                          <Column
+                            title="Total"
+                            dataIndex="total"
+                            key="total"
+                        />
+                        <Column
+                            title="Eliminar"
+                            dataIndex="remove"
+                            key="remove"
+                            render={(data, o)=><Button type="primary" onClick={()=>this.deleteDistributor(o)} >Eliminar</Button>}
+                        />
+
+
+
+                    </Table>
+
+
+
+
                 <FormItem >Total: $400.00</FormItem>
 
                 <FormItem label="Comentarios">
