@@ -11,6 +11,9 @@ const Option = Select.Option;
 let val
 let num
 
+let valPromo
+let numPromo
+
 function handleChange(value) {
     val = value
 }
@@ -18,6 +21,15 @@ function handleChange(value) {
 function onChange(value) {
     num = value
 }
+
+function handlePromoChange(value){
+    valPromo = value
+}
+
+function promoOnChange(value){
+    numPromo = value
+}
+
 
 
 export const DistribuidorNewPedido  = ({commentsChange, promos=[],products=[], addProduct, addPromo, selected=[],discount=false, removeProduct}) => {
@@ -46,22 +58,22 @@ export const DistribuidorNewPedido  = ({commentsChange, promos=[],products=[], a
                     </FormItem>
 
                     <FormItem label=" ">
-                       <Button onClick={()=>addProduct(val, num)} type="primary">Agregar</Button>
+                       <Button onClick={()=>{addProduct(val, num)}} type="primary">Agregar</Button>
                     </FormItem>
                 </div>
                 <div className="flexito">
                     
                     <FormItem label="Promoción">
-                        <Select style={{ width: 120 }} onChange={handleChange}>
+                        <Select style={{ width: 120 }} onChange={handlePromoChange}>
                             {promos.map((p,i)=><Option value={p._id} key={i}>{p.name}</Option>)}
                         </Select>
                     </FormItem>
                     <FormItem label="Pieza">
-                       <InputNumber min={1} max={100}  defaultValue={0} onChange={onChange}/>
+                       <InputNumber min={1} max={100}  defaultValue={0} onChange={promoOnChange}/>
                     </FormItem>
 
                     <FormItem label=" ">
-                    <Button onClick={()=>addPromo(val, num)} type="primary">Agregar</Button>
+                    <Button onClick={()=>{addPromo(valPromo, numPromo)}} type="primary">Agregar</Button>
                     </FormItem>
                 </div>
                 <Table 

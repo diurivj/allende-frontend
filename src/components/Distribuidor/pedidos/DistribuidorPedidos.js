@@ -1,31 +1,40 @@
 import React, { Component } from 'react';
-import './Admin.css';
+import '../Admin.css';
 import { Table, Button, Modal } from 'antd';
 import {Icon} from 'antd';
-import {DistribuidorNewPedido} from './forms/DistribuidorNewPedido';
-import {getSelfProfile} from '../../services/distributorService'
+import {DistribuidorNewPedido} from '../forms/DistribuidorNewPedido';
+import PedidoDetail from './PedidoDetail'
+import {getSelfProfile} from '../../../services/distributorService'
 import toastr from 'toastr'
-import { getProducts } from '../../services/productService';
-import {getPromos} from '../../services/promoService'
-import {createOrder, getOrders} from '../../services/orderService'
+import { getProducts } from '../../../services/productService';
+import {getPromos} from '../../../services/promoService'
+import {createOrder, getOrders} from '../../../services/orderService'
+import moment from 'moment'
+import 'moment/locale/es'
 
 
 const columns = [
     { title: '#Pedido',
-        dataIndex: 'id',
-        key: 'id' },
+        dataIndex: '_id',
+        key: '_id' },
     { title: 'Total',
         dataIndex: 'total',
-        key: 'total' },
+        key: 'total',
+        render:(data)=>"$ " + data && data.toFixed(2) + "MXN"
+    },
     { title: 'Fecha Pedido',
-        dataIndex: 'date',
-        key: 'date' },
+        dataIndex: 'createdAt',
+        key: 'createdAt',
+        render:data=>data && moment(data).format("ll") 
+    },
     { title: 'Fecha Entrega',
-        dataIndex: 'arrive',
-        key: 'arrive' },
+        dataIndex: 'arrivalDate',
+        key: 'arrivalDate' },
     { title: 'Status',
         dataIndex: 'status',
-        key: 'x', render: () => <Icon type="pushpin" /> },
+        key: 'status', 
+        // render: () => <Icon type="pushpin" /> 
+    },
 
 ];
 const data = [
@@ -36,6 +45,7 @@ const data = [
 
 
 class DistribuidorPedidos extends Component {
+
     state = { 
         visible: false,
         user:{},
@@ -46,12 +56,14 @@ class DistribuidorPedidos extends Component {
         promos:[],
         selected:[],
         comments:"",
-        orders:[]
+        orders:[],
+        visibleDetail:false,
+        pedido:{}
      }
 
     addProduct = (id, quantity) => {
         if(!quantity || quantity<1) return
-        const product = this.state.products.find(p=>p._id === id)
+        const product = this.state.products.find(p=>p._id === id) || {}
         product.quantity = quantity
         product.total = product.quantity * product.price
         let {selected} = this.state
@@ -63,8 +75,8 @@ class DistribuidorPedidos extends Component {
 
     addPromo = (id, quantity) => {
         console.log(id, quantity)
-        if(!quantity || quantity<1) return
-        const promo = this.state.promos.find(p=>p._id === id)
+        if(!quantity || quantity<1 || !id) return
+        const promo = this.state.promos.find(p=>p._id === id) || {}
         promo.quantity = quantity
         promo.total = promo.quantity * promo.price
         let {selected} = this.state
@@ -94,14 +106,18 @@ class DistribuidorPedidos extends Component {
         }
         createOrder(order)
         .then(o=>{
+            console.log(o)
             const {orders} = this.state
-            orders.unshift(orders)
+            orders.unshift(o)
             this.setState({orders})
             toastr.success("Tu orden se creo")
         })
     }
 
     componentWillMount(){
+        //route for tabs
+        // console.log("dupa")
+        //localStorage.setItem('match', JSON.stringify(this.props.match))
         //2.- pedir los datos del usuario
         getSelfProfile()
         .then(user=>{
@@ -160,8 +176,21 @@ class DistribuidorPedidos extends Component {
             visible: false,
         });
     }
+
+    clickRow = (pedido) => {
+        this.setState({pedido, visibleDetail:true})
+    }
+
+    getAvailableCredit = () => {
+        const {orders, profile} = this.state
+        const sum = orders.reduce((acc, or)=>acc+or.total,0)
+        return profile.credit_amount - sum
+    }
+
     render() {
-        const {promos, profile, products, selected} = this.state
+        
+        const {orders, promos, profile={}, products, selected, pedido} = this.state
+        console.log(profile)
         return (
             <div className="pedidos">
                 <h2>Mis pedidos</h2>
@@ -173,7 +202,7 @@ class DistribuidorPedidos extends Component {
                             <strong> ${profile.credit_amount.toLocaleString(2, { minimumFractionDigits: 2 })} MXN </strong>
                             </p>
                         <p>Tu crédito disponible es de: 
-                            <strong> ${profile.credit_amount.toLocaleString(2, { minimumFractionDigits: 2 })} MXN </strong>
+                            <strong> ${profile.credit_available && this.getAvailableCredit().toLocaleString(2, { minimumFractionDigits: 2 })} MXN </strong>
                         </p>
                         <p>Tu plazo de pago es de: 
                             <strong>{profile.credit_days} días</strong>
@@ -184,13 +213,18 @@ class DistribuidorPedidos extends Component {
                     <br/>
                     <div className="table">
                         <Table
+                        style={{cursor:"pointer"}}
+                            onRow={(record) => {
+                            return {
+                              onClick: ()=>this.clickRow(record),       // click row
+                            }}}
                             columns={columns}
-                            expandedRowRender={record => <p style={{ margin: 0,  width:"100%" }}>{record.description}</p>}
-                            dataSource={data}
+                            // expandedRowRender={record => <p style={{ margin: 0,  width:"100%" }}>{record.description}</p>}
+                            dataSource={orders}
                         />
                     </div>
                 </div>
-                <Button className='btn_float' type="primary"  onClick={this.showModal}>Agregar Pedido</Button>
+                <Button className='btn_float' type="primary"  onClick={this.showModal}>Levantar un Pedido</Button>
                 <Modal
                     title="Realiza un nuevo pedido"
                     visible={this.state.visible}
@@ -207,6 +241,18 @@ class DistribuidorPedidos extends Component {
                         addPromo={this.addPromo}
                         commentsChange={this.commentsChange}
                         submitOrder={this.submitOrder}
+                    />
+                </Modal>
+
+                <Modal
+                    title="Detalle de pedido"
+                    visible={this.state.visibleDetail}
+                    onOk={()=>this.setState({visibleDetail:false})}
+                    onCancel={()=>this.setState({visibleDetail:false})}
+                    cancelButtonProps={{ disabled: true }}
+                >
+                    <PedidoDetail 
+                        {...pedido}
                     />
                 </Modal>
             </div>

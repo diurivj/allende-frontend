@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Switch, Route } from 'react-router-dom';
 import DistribuidorDashboard from '../DistribuidorDashboard';
-import DistribuidorPedidos from '../DistribuidorPedidos';
+import DistribuidorPedidos from '../pedidos/DistribuidorPedidos';
 import {PedidoDetailDisplay} from '../PedidoDetailDisplay';
 import DistribuidorOrden from '../DistribuidorOrden';
 import DistribuidorProspectos from '../DistribuidorProspectos';
