@@ -1,38 +1,106 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Button, Form, Input, Checkbox} from 'antd';
 import {Link} from "react-router-dom"
+import toastr from 'toastr'
+import swal from 'sweetalert2'
+import {saveClient, getOneClient, getClients} from '../../services/clienteService'
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
 function onChange(e) {
     console.log(`checked = ${e.target.checked}`);
 }
-export const ClienteDetailDisplay  = ({
-    business_name, 
-        rfc,
-        phone,
-        email,
-        contact_name,
-        credit_amount,
-        credit_days,
-        discount,
-        delivery_address_street,
-        delivery_address_number,
-        delivery_address_int,
-        delivery_address_neighborhood,
-        delivery_address_zip_code,
-        delivery_address_state,
-        delivery_address_city,
-        business_address_street,
-        business_address_number,
-        business_address_int,
-        business_address_neighborhood,
-        business_address_zip_code,
-        business_address_state,
-        business_address_city,
-        comments
+class ClienteDetailDisplay extends Component{
+   state = {
+       client : {}
+   }
+
+componentWillMount(){
+       const id = this.props.match.params.id
+       if(id){
+             this.getClient(id)
+       }
+}
+
+getClient = (id) => {
+    getOneClient(id)
+    .then(client=>{
+        console.log(client)
+        this.setState({client})
+    })
+    .catch(e=>{
+            toastr.error("No se pudo cargar el cliente")
+    })
+}
+
+handleInput = (e) => {
+       const {client} = this.state
+       client[e.target.name] = e.target.value
+       this.setState({client})
+}
+
+submitClient = () => {
+       const {client} = this.state
+       swal({
+              title: '¿Está todo bien?',
+              text: "Asegurate de que todos los datos sean correctos",
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Si, Guardar!'
+            }).then((result) => {
+              if (result.value) {
+                saveClient(client)
+                .then(client=>{
+                     swal(
+                            'Actualizado!',
+                            'Tu lista de clientes se ha actualizado.',
+                            'success'
+                          )
+                          this.props.history.push('/dist/clientes')
+                })
+                .catch(e=>{
+                     swal(
+                            'Oops!',
+                            'No pudimos guardar tu cliente, intenta de nuevo',
+                            'error'
+                          )   
+                })
+               
+              }
+            })
+
+}
+
+
+
      
-}) => {
+ render(){
+        const { 
+               business_name, 
+              rfc,
+              phone,
+              email,
+              contact_name,
+              credit_amount,
+              credit_days,
+              discount,
+              delivery_address_street,
+              delivery_address_number,
+              delivery_address_int,
+              delivery_address_neighborhood,
+              delivery_address_zip_code,
+              delivery_address_state,
+              delivery_address_city,
+              business_address_street,
+              business_address_number,
+              business_address_int,
+              business_address_neighborhood,
+              business_address_zip_code,
+              business_address_state,
+              business_address_city,
+              comments} = this.state.client
     return(
         <div className="pedidos" >
             <h2>Nombre del cliente</h2>
@@ -144,7 +212,7 @@ export const ClienteDetailDisplay  = ({
                 <Button style={{marginRight:"20px"}}>Cancelar</Button>
               </Link>
             
-                <Button  type="primary">Guardar</Button>
+                <Button onClick={this.submitClient} type="primary">Guardar</Button>
             
             </div>
 
@@ -153,4 +221,7 @@ export const ClienteDetailDisplay  = ({
 
         </div>
     )
-};
+}
+}
+
+export default ClienteDetailDisplay

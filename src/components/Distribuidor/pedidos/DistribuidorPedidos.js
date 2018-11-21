@@ -9,6 +9,7 @@ import toastr from 'toastr'
 import { getProducts } from '../../../services/productService';
 import {getPromos} from '../../../services/promoService'
 import {createOrder, getOrders} from '../../../services/orderService'
+import swal from 'sweetalert2'
 import moment from 'moment'
 import 'moment/locale/es'
 
@@ -162,12 +163,27 @@ class DistribuidorPedidos extends Component {
     }
 
     handleOk = (e) => {
-    
-        this.submitOrder()
+        const {selected} = this.state
+        const sum = selected.reduce((acc,i)=>acc+i.total,0)
+        // console.log(selected, sum)
+        // console.log(sum, this.getAvailableCredit())
+        if( sum > this.getAvailableCredit()){
+            return swal({
+                type: 'error',
+                title: 'Oops...',
+                text: 'Parece que tu credito no es suficiente!',
+                footer: '<a href="mailto:contacto@allende.com">¿Necesitas ampliar tu credito?</a>'
+              })
+        }
+        if(selected.length < 1) {
+            console.log("ño")
+            return
+        }
+        // this.submitOrder()
 
-        this.setState({
-            visible: false,
-        });
+        // this.setState({
+        //     visible: false,
+        // });
     }
 
     handleCancel = (e) => {

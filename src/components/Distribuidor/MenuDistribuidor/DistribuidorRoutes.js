@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import DistribuidorDashboard from '../DistribuidorDashboard';
 import DistribuidorPedidos from '../pedidos/DistribuidorPedidos';
 import {PedidoDetailDisplay} from '../PedidoDetailDisplay';
-import DistribuidorOrden from '../DistribuidorOrden';
+import DistribuidorOrden from '../ordenes/DistribuidorOrden';
 import DistribuidorProspectos from '../DistribuidorProspectos';
 import DistribuidorPerfil from '../DistribuidorPerfil';
 import {OrdenDetailDisplay} from '../OrdenDetailDisplay';
@@ -12,7 +12,7 @@ import DistribuidorVentas from '../historial/DistribuidorVentas';
 import ProductosContainer from '../catalogo/ProductosContainer';
 import PromoContainer from '../catalogo/PromoContainer';
 import DistribuidorClientes from '../DistribuidorClientes';
-import {ClienteDetailDisplay} from '../ClienteDetailDisplay';
+import ClienteDetailDisplay from '../ClienteDetailDisplay';
 
 class AdminRoutes extends Component{
     render(){
@@ -30,7 +30,8 @@ class AdminRoutes extends Component{
                 <Route path="/dist/productos" component={ProductosContainer}/>
                 <Route path="/dist/promos" component={PromoContainer}/>
                 <Route exact path="/dist/clientes" component={DistribuidorClientes}/>
-                <Route path="/dist/clientes/id" component={ClienteDetailDisplay}/>
+                <Route exact path="/dist/clientes/add" component={ClienteDetailDisplay}/>
+                <Route path="/dist/clientes/:id" component={ClienteDetailDisplay}/>
             </Switch>
         )
     }

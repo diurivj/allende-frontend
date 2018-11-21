@@ -1,27 +1,37 @@
 import React, { Component } from 'react';
-import './Admin.css';
+import '../Admin.css';
 import {Link} from 'react-router-dom';
 import { Table, Button, Modal } from 'antd';
 import {Icon} from 'antd';
-import {DistribuidorNewOrden} from './forms/DistribuidorNewOrden';
+import DistribuidorNewOrden from '../forms/DistribuidorNewOrden';
+import {getClientsOrders, getClients} from '../../../services/clienteService'
+import toastr from 'toastr'
+import moment from 'moment'
 
 
 const columns = [
     { title: '#Pedido',
-        dataIndex: 'id',
-        key: 'id' },
+        dataIndex: '_id',
+        key: '_id',
+        render:data=>data && data.slice(1,6)
+    },
     { title: 'Cliente',
-        dataIndex: 'cliente',
-        key: 'cliente' },
+        dataIndex: 'client',
+        key: 'client',
+        render:data=>data && data.business_name
+    },
     { title: 'Fecha Pedido',
         dataIndex: 'date',
-        key: 'date' },
+        key: 'date',
+        render:data=>data && moment(data).format('ll')
+    },
     { title: 'Total',
         dataIndex: 'total',
         key: 'total' },
     { title: 'Status',
         dataIndex: 'status',
-        key: 'x', render: () => <Icon type="pushpin" /> },
+        key: 'status'
+    },
 
 ];
 const data = [
@@ -32,7 +42,16 @@ const data = [
 
 
 class DistribuidorOrden extends Component {
-    state = { visible: false }
+    state = {
+         visible: false ,
+         orders:[],
+         clients:[]
+        }
+
+    componentWillMount(){
+        this.getOrders()
+        this.getClients()
+    }
 
     showModal = () => {
         this.setState({
@@ -48,41 +67,69 @@ class DistribuidorOrden extends Component {
     }
 
     handleCancel = (e) => {
-        console.log(e);
         this.setState({
             visible: false,
         });
     }
+
+    getOrders = () => {
+        getClientsOrders()
+        .then(orders=>{
+            console.log(orders)
+            this.setState({orders})
+        })
+        .catch(e=>{
+            toastr.error("No se pudieron cargar tus ordenes", e)
+        })
+    }
+
+    getClients = () => {
+        getClients()
+        .then(clients=>{
+            this.setState({clients})
+        })
+        .catch(e=>{
+            toastr.error("No se pudieron cargar tus Clientes", e)
+        })
+    }
+
+    updateList = (order) => {
+        this.getOrders()
+        this.setState({visible:false})
+    }
+
     render() {
+        let {orders, clients} = this.state
+        orders = orders.reverse()
+        console.log(clients)
         return (
             <div className="pedidos">
                 <h2>Mis Ordenes</h2>
                 <br/>
                 <div className="box_pedidos">
                     <div className="pedido">
-                        <h3>Distribuidor Bajio</h3>
-                        <p>Ordenes en proceso: </p>
-                        <p>Ordenes finalizadas: </p>
+                        <h3></h3>
+                        {/* <p>Ordenes en proceso: </p>
+                        <p>Ordenes finalizadas: </p> */}
 
                     </div>
                     <br/>
                     <div className="table">
                         <Table
                             columns={columns}
-                            expandedRowRender={record => <p style={{ margin: 0,  width:"100%" }}>{record.description}</p>}
-                            dataSource={data}
+                            // expandedRowRender={record => <p style={{ margin: 0,  width:"100%" }}>{record.description}</p>}
+                            dataSource={orders}
                         />
                     </div>
                 </div>
                 <Button className='btn_float' type="primary"  onClick={this.showModal}>Generar Orden</Button>
-                <Modal
-                    title="Genera un nuevo pedido"
+
+                   <DistribuidorNewOrden 
                     visible={this.state.visible}
-                    onOk={this.handleOk}
-                    onCancel={this.handleCancel}
-                >
-                   <DistribuidorNewOrden />
-                </Modal>
+                    clients={clients}
+                    handleCancel={this.handleCancel}
+                    updateList = {this.updateList}
+                   />
             </div>
         );
     }
