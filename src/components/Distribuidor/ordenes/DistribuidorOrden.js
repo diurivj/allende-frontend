@@ -7,6 +7,8 @@ import DistribuidorNewOrden from '../forms/DistribuidorNewOrden';
 import {getClientsOrders, getClients} from '../../../services/clienteService'
 import toastr from 'toastr'
 import moment from 'moment'
+import {Route} from 'react-router-dom'
+import OrderDetail from './OrderDetail'
 
 
 const columns = [
@@ -45,7 +47,8 @@ class DistribuidorOrden extends Component {
     state = {
          visible: false ,
          orders:[],
-         clients:[]
+         clients:[],
+         order:false
         }
 
     componentWillMount(){
@@ -56,6 +59,7 @@ class DistribuidorOrden extends Component {
     showModal = () => {
         this.setState({
             visible: true,
+            order:false
         });
     }
 
@@ -98,8 +102,12 @@ class DistribuidorOrden extends Component {
         this.setState({visible:false})
     }
 
+    clickRow = (order) => {
+        this.props.history.push('/dist/ordenes/' + order._id)
+    }
+
     render() {
-        let {orders, clients} = this.state
+        let {orders, clients, order} = this.state
         orders = orders.reverse()
         console.log(clients)
         return (
@@ -116,9 +124,14 @@ class DistribuidorOrden extends Component {
                     <br/>
                     <div className="table">
                         <Table
+                        style={{cursor:"pointer"}}
                             columns={columns}
                             // expandedRowRender={record => <p style={{ margin: 0,  width:"100%" }}>{record.description}</p>}
                             dataSource={orders}
+                            onRow={(record) => {
+                                return {
+                                  onClick: ()=>this.clickRow(record),       // click row
+                            }}}
                         />
                     </div>
                 </div>
@@ -129,7 +142,9 @@ class DistribuidorOrden extends Component {
                     clients={clients}
                     handleCancel={this.handleCancel}
                     updateList = {this.updateList}
+                    order={order}
                    />
+                   <Route path="/dist/ordenes/:id" component={OrderDetail}/>
             </div>
         );
     }

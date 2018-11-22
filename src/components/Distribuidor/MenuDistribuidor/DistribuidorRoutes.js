@@ -13,6 +13,7 @@ import ProductosContainer from '../catalogo/ProductosContainer';
 import PromoContainer from '../catalogo/PromoContainer';
 import DistribuidorClientes from '../DistribuidorClientes';
 import ClienteDetailDisplay from '../ClienteDetailDisplay';
+import OrderDetail from '../ordenes/OrderDetail';
 
 class AdminRoutes extends Component{
     render(){
@@ -21,8 +22,8 @@ class AdminRoutes extends Component{
                 <Route exact path='/dist' component={DistribuidorDashboard} />
                 <Route exact path="/dist/pedidos" component={DistribuidorPedidos}/>
                 <Route path="/dist/pedidos/id" component={PedidoDetailDisplay}/>
-                <Route exact path="/dist/ordenes" component={DistribuidorOrden}/>
-                <Route  path="/dist/ordenes/id" component={OrdenDetailDisplay}/>
+                <Route path="/dist/ordenes" component={DistribuidorOrden}/>
+                {/* <Route path="/dist/ordenes/:id" component={OrderDetail}/> */}
                 <Route path="/dist/prospectos" component={DistribuidorProspectos}/>
                 <Route path="/dist/perfil" component={DistribuidorPerfil}/>
                 <Route path="/dist/compras" component={DistribuidorCompras}/>

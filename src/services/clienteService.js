@@ -11,6 +11,16 @@ export const getClientsOrders = () => {
         // .catch(e=>e)
 }
 
+export const getClientOrder = (id) => {
+    return axios.get(url + 'orders/' + id, {
+        headers:{
+            "Authorization": getToken()
+        }
+    } )
+        .then(res=>res.data)
+        // .catch(e=>e)
+}
+
 export const saveOrder = (order) => {
     if(order._id) return updateOrder(order)
     return createOrder(order)
