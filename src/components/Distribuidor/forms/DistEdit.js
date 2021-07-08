@@ -2,85 +2,82 @@ import React, {Component} from 'react';
 import { Button, Form, Input, Checkbox} from 'antd';
 import {Link} from 'react-router-dom';
 import toastr from 'toastr';
-import {createDistributor, updateDistributor, getOneDistributor} from '../../services/distributorService'
+//import {createDistributor, updateDistributor, getOneDistributor} from '../../services/distributorService'
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
 
 
-class DistribuidorDetailDisplay extends Component {
+class DistEdit extends Component {
 
   state = {
     dist: {},
     updating: false
   };
 
-  getDistributor = (id) => {
-    return getOneDistributor(id)
-    .then(dist=>dist)
-    .catch(e=>{})
-  }
+//   getDistributor = (id) => {
+//     return getOneDistributor(id)
+//     .then(dist=>dist)
+//     .catch(e=>{})
+//   }
 
   handleInput = (e) => {
-    const {dist} = this.state;
-    const field = e.target.name;
-    dist[field] = e.target.value;
-    this.setState({dist});
+    this.props.handleInput(e)
   };
 
-  handleSubmit = () => {
-    const {dist} = this.state;
-    console.log(dist);
-    createDistributor(dist)
-    .then(d=>{
-      console.log(d)
-      toastr.success("Distribuidor creado")
-      //redireccionar a la lista
-      this.props.history.push("/admin/dist")
-    })
-    .catch(e=>{
-      console.log(e)
-      toastr.error("No se pudo crear")
-    })
-  };
+//   handleSubmit = () => {
+//     const {dist} = this.state;
+//     console.log(dist);
+//     createDistributor(dist)
+//     .then(d=>{
+//       console.log(d)
+//       toastr.success("Distribuidor creado")
+//       //redireccionar a la lista
+//       this.props.history.push("/admin/dist")
+//     })
+//     .catch(e=>{
+//       console.log(e)
+//       toastr.error("No se pudo crear")
+//     })
+//   };
 
-  handleUpdate = () => {
-    const {dist} = this.state;
-    updateDistributor(dist)
-    .then(d=>{
-      console.log(d)
-      toastr.success("Distribuidor Actualizado")
-      //redireccionar a la lista
-      this.props.history.push("/admin/dist")
-    })
-    .catch(e=>{
-      console.log(e)
-      toastr.error("No se pudo Actualizar")
-    })
-  }
+//   handleUpdate = () => {
+//     const {dist} = this.state;
+//     updateDistributor(dist)
+//     .then(d=>{
+//       console.log(d)
+//       toastr.success("Distribuidor Actualizado")
+//       //redireccionar a la lista
+//       this.props.history.push("/admin/dist")
+//     })
+//     .catch(e=>{
+//       console.log(e)
+//       toastr.error("No se pudo Actualizar")
+//     })
+//   }
 
-  onChange = (e) => {
-    const field = e.target.name
-    const value = e.target.value
-    const {dist} = this.state
-    dist[field] = value
-    this.setState({dist})
-}
+//   onChange = (e) => {
+//     const field = e.target.name
+//     const value = e.target.value
+//     const {dist} = this.state
+//     dist[field] = value
+//     this.setState({dist})
+// }
 
-componentWillMount(){
-  const id = this.props.match.params.id
-  if(id) {
-    this.getDistributor(id)
-    .then(dist=>{
-      console.log(dist)
-      this.setState({updating:true, dist})
-    })
+// componentWillMount(){
+//   const id = this.props.match.params.id
+//   if(id) {
+//     this.getDistributor(id)
+//     .then(dist=>{
+//       console.log(dist)
+//       this.setState({updating:true, dist})
+//     })
     
-  }
-}
+//   }
+// }
 
   render() {
-    const {updating, dist} = this.state
+    const {updating, dist} = this.props
     console.log(dist)
     const {business_name, 
             rfc,
@@ -121,6 +118,7 @@ componentWillMount(){
             
               <FormItem label="Nombre o Razón Social"></FormItem>
               <Input placeholder="Razón Social"
+                    disabled
                      type='text'
                      name='business_name'
                      onChange={this.handleInput}
@@ -129,6 +127,7 @@ componentWillMount(){
 
               <FormItem label="RFC"></FormItem>
               <Input placeholder="13 digitos"
+                    disabled
                      type='text'
                      name='rfc'
                      onChange={this.handleInput}
@@ -164,32 +163,7 @@ componentWillMount(){
             </div>
 
 
-            <div className="form_flex">
-              <FormItem label="Línea de crédito:"></FormItem>
-              <Input placeholder="Cantidad"
-                     type="number"
-                     name='credit_amount'
-                     onChange={this.handleInput}
-                     value={credit_amount}
-              />
-
-              <FormItem label="Días de crédito:"></FormItem>
-              <Input placeholder="Días"
-                     type="number"
-                     name='credit_days'
-                     onChange={this.handleInput}
-                     value={credit_days}
-              />
-
-              <FormItem label="Porcentaje de descuento"></FormItem>
-              <Input placeholder="%"
-                     type="number"
-                     name="discount"
-                     onChange={this.handleInput}
-                     value={discount}
-              />
-            </div>
-
+           
             <FormItem label="Dirección Fiscal">
               <div className="form_flex">
                 <Input placeholder="Calle"
@@ -288,14 +262,10 @@ componentWillMount(){
             <br/>
 
             <div style={{float:"right"}}>
-              <Link to="/admin/dist">
-                <Button style={{marginRight:"20px"}}>Cancelar</Button>
-              </Link>
-              {updating ? 
-                <Button onClick={this.handleUpdate} type="primary">Actualizar</Button>
-                :
-                <Button onClick={this.handleSubmit} type="primary">Guardar</Button>
-              }
+                <Button onClick={this.props.handleCancel} style={{marginRight:"20px"}}>Cancelar</Button>
+
+                <Button onClick={this.props.handleSubmit} type="primary">Actualizar</Button>
+              
             </div>
 
           </Form>
@@ -306,4 +276,4 @@ componentWillMount(){
   }
 }
 
-export default DistribuidorDetailDisplay;
+export default DistEdit;

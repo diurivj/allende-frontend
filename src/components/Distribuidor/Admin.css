@@ -105,9 +105,10 @@
     min-height: 30px;
     text-align: left;
     padding: 1% 2%;
+    display: flex;
 }
 .i{
-    margin: 0 10px 0 0;
+    margin: 5px 10px 0 0;
     color:#1890ff;
 }
 
@@ -164,4 +165,5 @@ margin: 5px 10px 5px 0;
 }
 .flexito{
     display: flex !important;
+    justify-content: space-between;
 }

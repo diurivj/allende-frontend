@@ -1,49 +1,125 @@
 import React from 'react';
 import '../Admin.css';
-import { Form, Input, Select, InputNumber, DatePicker } from 'antd';
+import { Form, Input, Select, InputNumber, Button, Icon, Table} from 'antd';
+import FontAwesome from "react-fontawesome"
+const { Column, ColumnGroup } = Table;
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
 const Option = Select.Option;
 
+let val
+let num
+
+let valPromo
+let numPromo
+
 function handleChange(value) {
-    console.log(`selected ${value}`);
+    val = value
 }
 
 function onChange(value) {
-    console.log('changed', value);
-}
-function onChange(date, dateString) {
-    console.log(date, dateString);
+    num = value
 }
 
-export const DistribuidorNewPedido  = () => {
+function handlePromoChange(value){
+    valPromo = value
+}
+
+function promoOnChange(value){
+    numPromo = value
+}
+
+
+
+export const DistribuidorNewPedido  = ({commentsChange, promos=[],products=[], addProduct, addPromo, selected=[],discount=false, removeProduct}) => {
+    let total = selected.reduce((acc, p)=>{
+        return acc + p.total
+    },0)
+    let withDiscount = total
+    if(discount) withDiscount = total - (total*(discount / 100))
     return(
         <div >
             <Form >
                 <h4>Distribuidor</h4>
-                <FormItem label="Fecha de entrega requerida">
+                {/* <FormItem label="Fecha de entrega requerida">
                     <DatePicker  onChange={onChange} />
-                </FormItem>
-
+                </FormItem> */}
+                <p>Genera tu pedido</p>
                 <div className="flexito">
-                    <FormItem label="IPA" style={{ width:"60%" }}>
-                        <InputNumber  min={1} max={100} defaultValue={10} onChange={onChange} />
+                    
+                    <FormItem label="Producto">
+                        <Select style={{ width: 120 }} onChange={handleChange}>
+                            {products.map((p,i)=><Option key={i} value={p._id}>{p.name}</Option>)}
+                        </Select>
                     </FormItem>
-                    <FormItem label="IPA" style={{ width:"60%" }}>
-                        <InputNumber min={1} max={100} defaultValue={10} onChange={onChange} />
+                    <FormItem label="Caja(24pzas)">
+                       <InputNumber  min={1} max={100} defaultValue={0} onChange={onChange} />
                     </FormItem>
-                    <FormItem label="IPA" style={{ width:"60%" }}>
-                        <InputNumber min={1} max={100} defaultValue={10} onChange={onChange} />
-                    </FormItem>
-                    <FormItem label="IPA" style={{ width:"60%" }}>
-                        <InputNumber min={1} max={100} defaultValue={10} onChange={onChange} />
+
+                    <FormItem label=" ">
+                       <Button onClick={()=>{addProduct(val, num)}} type="primary">Agregar</Button>
                     </FormItem>
                 </div>
-                <FormItem >Total: $400.00</FormItem>
+                <div className="flexito">
+                    
+                    <FormItem label="Promoción">
+                        <Select style={{ width: 120 }} onChange={handlePromoChange}>
+                            {promos.map((p,i)=><Option value={p._id} key={i}>{p.name}</Option>)}
+                        </Select>
+                    </FormItem>
+                    <FormItem label="Pieza">
+                       <InputNumber min={1} max={100}  defaultValue={0} onChange={promoOnChange}/>
+                    </FormItem>
+
+                    <FormItem label=" ">
+                    <Button onClick={()=>{addPromo(valPromo, numPromo)}} type="primary">Agregar</Button>
+                    </FormItem>
+                </div>
+                <Table 
+                dataSource={selected}
+                rowKey="_id" >
+                        <Column
+                            title="Nombre"
+                            dataIndex="name"
+                            key="name"
+                        />
+            
+                        <Column
+                            title="Cantidad"
+                            dataIndex="quantity"
+                            key="quantity"
+                        />
+                        <Column
+                            title="Precio/u"
+                            dataIndex="price"
+                            key="price"
+                        />
+                          <Column
+                            title="Total"
+                            dataIndex="total"
+                            key="total"
+                        />
+                        <Column
+                            title="Eliminar"
+                            dataIndex="remove"
+                            key="remove"
+                            render={(data, o)=><Button type="primary" onClick={()=>removeProduct(o)} >Eliminar</Button>}
+                        />
+
+
+
+                    </Table>
+
+
+
+
+                <FormItem >subtotal: ${total}</FormItem>
+                <FormItem >Descuento: {discount} %</FormItem>
+                <FormItem >Total: ${withDiscount.toLocaleString(2,{ minimumFractionDigits: 2 })} MXN</FormItem>
 
                 <FormItem label="Comentarios">
-                    <TextArea autosize={{ minRows: 2, maxRows: 6 }} />
+                    <TextArea onChange={commentsChange} autosize={{ minRows: 2, maxRows: 6 }} />
                 </FormItem>
                 <span style={{fontSize:"10px"}}>Recuerda que tu fecha limite de pago es: </span>
 

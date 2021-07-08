@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Card, Icon, Input, Form, Button} from 'antd';
 
+const url = "https://backendallende.herokuapp.com/auth/change_password/"
+
 class ChangePassword extends Component {
 
   componentWillMount() {
@@ -16,7 +18,7 @@ class ChangePassword extends Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         const {password} = values;
-        fetch('http://localhost:3000/auth/change_password', {
+        fetch(url, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"

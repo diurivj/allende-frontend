@@ -21,7 +21,8 @@ class AdminRoutes extends Component {
         <Route path="/admin/alertas" component={AdminAlertas}/>
         <Route exact path='/admin/profile' component={AdminProfile} />
         <Route exact path='/admin/dist' component={AdminDistribuidores} />
-        <Route path="/admin/dist/id" component={DistribuidorDetailDisplay}/>
+        <Route exact path="/admin/dist/new" component={DistribuidorDetailDisplay}/>
+        <Route path="/admin/dist/:id" component={DistribuidorDetailDisplay}/>
         <Route exact path='/admin/pedidos' component={AdminPedidos} />
         <Route exact path='/admin/dashboard' component={AdminDashboard} />
         <Route exact path='/admin/productos' component={AdminProducts} />

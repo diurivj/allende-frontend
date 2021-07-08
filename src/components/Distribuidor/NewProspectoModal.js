@@ -6,31 +6,25 @@ const { TextArea } = Input;
 
 
 
-
-class NewClienteModal extends Component {
-
-    render() {
+export const NewProspectoModal  = ({name, adress, telefono, comments}) => {
 
         return (
             <div>
                 <Form >
                     <FormItem label="Nombre o Razón Social">
-                        <Input />
+                        <Input type="text" name="name" onChange={this.handleInput} value={name} placeholder="Razón Social"/>
                     </FormItem>
                     <FormItem label="Dirección">
-                        <Input />
+                        <Input type="text" name="adress" onChange={this.handleInput} value={adress} placeholder="Dirección completa"/>
                     </FormItem>
                     <FormItem label="Teléfono">
-                        <Input />
+                        <Input type="text" name="telefono" onChange={this.handleInput} value={telefono} placeholder="55 555 55 55"/>
                     </FormItem>
                     <FormItem label="Comentarios">
-                        <TextArea autosize={{ minRows: 2, maxRows: 6 }} />
+                        <TextArea type="text" name="comments" onChange={this.handleInput} value={comments} autosize={{ minRows: 2, maxRows: 6 }} placeholder="Comentarios u anotaciones"/>
                     </FormItem>
 
                 </Form>
             </div>
-        );
-    }
-}
-
-export default NewClienteModal;
+        )
+    };

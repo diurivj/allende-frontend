@@ -4,13 +4,36 @@ import {Link} from 'react-router-dom';
 import logo from '../../../assets/logoallende.png';
 const { SubMenu } = Menu;
 
+
 class AdminPanel extends Component{
+
+    state = {
+        keys:[]
+    }
+
+    componentWillMount(){
+        this.checkTab()
+    }
+
+    checkTab = () => {
+        // const match = JSON.parse(localStorage.getItem('match'))
+        // switch(match.path){
+        //     case "/dist/pedidos":
+        //         return this.setState({keys:["sub3","6"]})
+        //     default:
+        //         return
+        // }
+    }
 
 
     render(){
+        const {keys} = this.state
         return(
             <div style={{ width: 200 , textAlign: 'left' }}>
-                <Menu mode="inline" theme="dark" inlineCollapsed={false} defaultSelectedKeys={['1']} style={{ minHeight: '100vh' }} inlineIndent={'24'} >
+                <Menu
+                // onClick={this.checkTab}
+                    selectedKeys={keys}
+                    mode="inline" theme="dark" inlineCollapsed={false} defaultSelectedKeys={['1']} style={{ minHeight: '100vh' }} inlineIndent={'24'} >
                     <div style={{ marginTop: '30px', marginBottom: '30px', textAlign: 'center' }}>
                         <img src={logo} alt="allende" width="70%" />
                     </div>
